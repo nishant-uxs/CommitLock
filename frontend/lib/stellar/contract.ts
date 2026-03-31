@@ -1,6 +1,8 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
 import { STELLAR_CONFIG } from './config';
 import { Reservation } from './types';
+import { trackTransaction } from '@/lib/metrics/tracker';
+import { logContractCall, logTransaction } from '@/lib/monitoring/logger';
 
 const { Contract, rpc, TransactionBuilder, Networks, BASE_FEE, xdr, Address, nativeToScVal, Keypair } = StellarSdk;
 
@@ -47,6 +49,7 @@ export class CommitLockContract {
       .build();
 
     const prepared = await this.server.prepareTransaction(transaction);
+    logContractCall('create_reservation', { title, depositXLM });
     return prepared.toXDR();
   }
 
@@ -73,6 +76,7 @@ export class CommitLockContract {
       .build();
 
     const prepared = await this.server.prepareTransaction(transaction);
+    logContractCall('book_reservation', { reservationId });
     return prepared.toXDR();
   }
 
@@ -101,6 +105,7 @@ export class CommitLockContract {
       .build();
 
     const prepared = await this.server.prepareTransaction(transaction);
+    logContractCall('confirm_attendance', { reservationId, attended });
     return prepared.toXDR();
   }
 
@@ -170,8 +175,11 @@ export class CommitLockContract {
       }
 
       if (getResponse.status === rpc.Api.GetTransactionStatus.SUCCESS) {
+        logTransaction('submitted', response.hash);
+        trackTransaction('reservation');
         return response.hash;
       } else {
+        logTransaction('failed', response.hash, 'Transaction failed on chain');
         throw new Error('Transaction failed on chain');
       }
     } else if (response.status === 'ERROR') {
