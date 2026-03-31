@@ -6,6 +6,7 @@ services:
     plan: free
     buildCommand: npm install && npm run build
     startCommand: npm start
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
@@ -17,3 +18,9 @@ services:
         value: https://horizon-testnet.stellar.org
       - key: NEXT_PUBLIC_SOROBAN_RPC_URL
         value: https://soroban-testnet.stellar.org
+      - key: NEXT_PUBLIC_FEE_SPONSOR_ENABLED
+        value: "true"
+      - key: NEXT_PUBLIC_FEE_SPONSOR_PUBLIC_KEY
+        sync: false
+      - key: FEE_SPONSOR_SECRET_KEY
+        sync: false
