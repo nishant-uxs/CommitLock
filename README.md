@@ -1,0 +1,537 @@
+# CommitLock - Decentralized No-Show Protection Protocol
+
+![CommitLock Banner](https://via.placeholder.com/1200x300/3B82F6/FFFFFF?text=CommitLock+-+Stop+No-Shows+with+Blockchain)
+
+**CommitLock** is a decentralized no-show protection protocol built on Stellar Soroban smart contracts. It prevents users from booking services and not showing up by requiring refundable XLM deposits.
+
+### 🔗 Quick Links
+
+- **🌐 Live Demo**: [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com)
+- **🎥 Demo Video**: [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM)
+- **📊 User Feedback**: [View User Responses (CSV)](./docs/user-responses.csv)
+- **📋 Google Form**: [CommitLock User Onboarding Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform)
+- **🔍 Contract on Stellar Expert**: [View Contract](https://stellar.expert/explorer/testnet/contract/CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5)
+
+## 🌟 Features
+
+- **Smart Contract Escrow**: Deposits locked in Soroban smart contracts
+- **Multi-Wallet Support**: Connect with Freighter, Albedo, or xBull
+- **Automated Refunds**: Instant refunds for guests who attend
+- **Host Protection**: Hosts receive deposit if guest doesn't show
+- **Transaction Transparency**: All transactions visible on Stellar testnet
+- **User Feedback System**: Built-in feedback collection
+
+## 🏗️ Architecture
+
+### Smart Contract (Soroban/Rust)
+
+The smart contract handles all core business logic:
+
+- **Reservation Management**: Create, book, and manage reservations
+- **Escrow System**: Lock and release XLM deposits
+- **Attendance Verification**: Host confirms guest attendance
+- **Event Emission**: Track all state changes
+
+### Frontend (Next.js 14)
+
+Modern, responsive web application:
+
+- **Server Components**: Optimized performance with Next.js 14
+- **TypeScript**: Type-safe development
+- **TailwindCSS**: Beautiful, responsive UI
+- **Shadcn UI**: Accessible component library
+
+### Blockchain Integration
+
+- **StellarWalletsKit**: Multi-wallet connectivity
+- **Stellar SDK**: Transaction building and submission
+- **Soroban RPC**: Smart contract interaction
+
+## 📋 Prerequisites
+
+- **Node.js** 18+ and npm
+- **Rust** and Cargo (for smart contract development)
+- **Stellar CLI** (for contract deployment)
+- **Stellar Wallet** (Freighter, Albedo, or xBull)
+- **Testnet XLM** (from Stellar Laboratory)
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd blue-belt
+```
+
+### 2. Install Smart Contract Dependencies
+
+```bash
+cd contracts
+cargo build --target wasm32-unknown-unknown --release
+```
+
+### 3. Deploy Smart Contract to Testnet
+
+```bash
+# Install Stellar CLI
+cargo install --locked stellar-cli --features opt
+
+# Build optimized WASM
+stellar contract build
+
+# Deploy to testnet (replace <YOUR_SECRET_KEY> with your Stellar secret key)
+stellar contract deploy \
+  --wasm target/wasm32-unknown-unknown/release/commitlock.wasm \
+  --source <YOUR_SECRET_KEY> \
+  --network testnet
+
+# Save the contract ID that is returned
+
+# Initialize the contract
+stellar contract invoke \
+  --id <CONTRACT_ID> \
+  --source <YOUR_SECRET_KEY> \
+  --network testnet \
+  -- initialize
+```
+
+### 4. Set Up Frontend
+
+```bash
+cd ../frontend
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.example .env.local
+
+# Edit .env.local and add your contract ID
+# NEXT_PUBLIC_CONTRACT_ID=<YOUR_CONTRACT_ID>
+```
+
+### 5. Run Development Server
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 📁 Project Structure
+
+```
+blue-belt/
+├── contracts/                 # Soroban smart contracts
+│   ├── src/
+│   │   └── lib.rs            # Main contract code
+│   ├── Cargo.toml            # Rust dependencies
+│   └── README.md             # Contract documentation
+│
+├── frontend/                  # Next.js application
+│   ├── app/                  # Next.js 14 App Router
+│   │   ├── page.tsx          # Landing page
+│   │   ├── dashboard/        # Dashboard page
+│   │   ├── create/           # Create reservation page
+│   │   ├── booking/[id]/     # Booking details page
+│   │   ├── feedback/         # Feedback page
+│   │   ├── api/              # API routes
+│   │   ├── layout.tsx        # Root layout
+│   │   └── globals.css       # Global styles
+│   │
+│   ├── components/           # React components
+│   │   ├── ui/               # Shadcn UI components
+│   │   ├── wallet/           # Wallet connection
+│   │   ├── reservation/      # Reservation components
+│   │   └── feedback/         # Feedback form
+│   │
+│   ├── contexts/             # React contexts
+│   │   └── WalletContext.tsx # Wallet state management
+│   │
+│   ├── lib/                  # Utilities and helpers
+│   │   ├── stellar/          # Stellar integration
+│   │   │   ├── config.ts     # Network configuration
+│   │   │   ├── contract.ts   # Contract interaction
+│   │   │   └── types.ts      # TypeScript types
+│   │   └── utils.ts          # Helper functions
+│   │
+│   ├── package.json          # Dependencies
+│   ├── tsconfig.json         # TypeScript config
+│   ├── tailwind.config.ts    # Tailwind config
+│   └── next.config.js        # Next.js config
+│
+├── ARCHITECTURE.md           # Detailed architecture docs
+├── RENDER_DEPLOYMENT.md      # Render deployment guide
+└── README.md                 # This file
+```
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Create a `.env.local` file in the `frontend` directory:
+
+```env
+NEXT_PUBLIC_STELLAR_NETWORK=testnet
+NEXT_PUBLIC_CONTRACT_ID=<YOUR_DEPLOYED_CONTRACT_ID>
+NEXT_PUBLIC_HORIZON_URL=https://horizon-testnet.stellar.org
+NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org
+```
+
+## 📖 Usage Guide
+
+### For Hosts
+
+1. **Connect Wallet**: Click "Connect Wallet" and select your wallet
+2. **Create Reservation**: Navigate to "Create Reservation"
+3. **Fill Details**: Enter title, description, date/time, and deposit amount
+4. **Submit**: Sign the transaction to create the reservation
+5. **Confirm Attendance**: After the reservation time, confirm if guest attended
+
+### For Guests
+
+1. **Connect Wallet**: Click "Connect Wallet" and select your wallet
+2. **Browse Reservations**: View available reservations on the dashboard
+3. **Book Reservation**: Click on a reservation and book it
+4. **Lock Deposit**: Sign the transaction to lock your XLM deposit
+5. **Attend Event**: Show up to the reservation
+6. **Get Refund**: Host confirms attendance and you receive your deposit back
+
+## 🔐 Smart Contract Functions
+
+### `initialize()`
+Initializes the contract (called once after deployment).
+
+### `create_reservation(host, title, description, timestamp, deposit)`
+Creates a new reservation slot.
+
+**Parameters:**
+- `host`: Address of the host
+- `title`: Reservation title
+- `description`: Reservation description
+- `timestamp`: Unix timestamp for reservation time
+- `deposit`: Deposit amount in stroops (1 XLM = 10,000,000 stroops)
+
+**Returns:** Reservation ID
+
+### `book_reservation(reservation_id, guest)`
+Books a reservation and locks the deposit.
+
+**Parameters:**
+- `reservation_id`: ID of the reservation
+- `guest`: Address of the guest
+
+### `confirm_attendance(reservation_id, host, attended)`
+Confirms whether the guest attended.
+
+**Parameters:**
+- `reservation_id`: ID of the reservation
+- `host`: Address of the host (must match reservation host)
+- `attended`: Boolean (true if guest attended, false if no-show)
+
+### `get_reservation(reservation_id)`
+Returns reservation details.
+
+### `get_all_reservations()`
+Returns all reservations.
+
+### `get_user_bookings(user)`
+Returns all reservations for a specific user.
+
+## 🧪 Testing
+
+### Smart Contract Tests
+
+```bash
+cd contracts
+cargo test
+```
+
+### Frontend Testing
+
+```bash
+cd frontend
+npm run lint
+npm run build
+```
+
+## 🌐 Deployment
+
+### Deploy Smart Contract
+
+See "Deploy Smart Contract to Testnet" section above.
+
+### Deploy Frontend to Render
+
+1. **Push to GitHub**:
+```bash
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+```
+
+2. **Connect to Render**:
+   - Go to [render.com](https://render.com)
+   - Click **New +** → **Web Service**
+   - Connect your GitHub repository
+   - Select the `frontend` directory as root directory
+   - Render will auto-detect Next.js
+
+3. **Configure Build Settings**:
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+   - **Environment**: Node
+
+4. **Environment Variables** (already configured in `render.yaml`):
+   - `NEXT_PUBLIC_STELLAR_NETWORK=testnet`
+   - `NEXT_PUBLIC_CONTRACT_ID=CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5`
+   - `NEXT_PUBLIC_HORIZON_URL=https://horizon-testnet.stellar.org`
+   - `NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org`
+
+5. **Deploy**: Click **Create Web Service** and wait for deployment to complete
+
+## 📊 Deployed Contract & Transactions
+
+### Contract Information
+
+**Contract Address**: `CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5`
+
+**Network**: Stellar Testnet
+
+**Features**: Real XLM token transfers with escrow, deposit refunds, and no-show penalties
+
+**View on Stellar Expert**: [https://stellar.expert/explorer/testnet/contract/CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5](https://stellar.expert/explorer/testnet/contract/CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5)
+
+### Example Transactions
+
+**Deployment Transaction**: `5be5207d8fcaa28b25f8146fd9b2ca3cd38eda68dcabf4ec628f86b074f7a603`
+- [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/5be5207d8fcaa28b25f8146fd9b2ca3cd38eda68dcabf4ec628f86b074f7a603)
+
+**Test Reservation Created**: `9319b202d3cac385fe941238c5664c4ef7dbc5ddb8adbde5ef8d3a6f10417acf`
+- Reservation ID: 1
+- Title: "Dinner Meeting"
+- Deposit: 0.5 XLM (5,000,000 stroops)
+- [View on Stellar Expert](https://stellar.expert/explorer/testnet/tx/9319b202d3cac385fe941238c5664c4ef7dbc5ddb8adbde5ef8d3a6f10417acf)
+
+## 🐛 Troubleshooting
+
+### Wallet Not Connecting
+
+- Ensure you have a Stellar wallet installed (Freighter, Albedo, or xBull)
+- Check that your wallet is set to Stellar Testnet
+- Refresh the page and try again
+
+### Transaction Failing
+
+- Ensure you have sufficient XLM in your wallet for the deposit + fees
+- Check that the reservation is still open and not already booked
+- Verify the contract ID is correct in your `.env.local`
+
+### Contract Not Found
+
+- Verify the contract ID in your environment variables
+- Ensure the contract was properly deployed and initialized
+- Check you're connected to the correct network (testnet)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 User Onboarding & Feedback Collection
+
+### User Onboarding Process
+
+We collect user information and feedback through a structured Google Form to improve CommitLock and understand our users better.
+
+#### 📋 Google Form
+
+**[CommitLock User Onboarding Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform)**
+
+The form collects:
+- **Name**: User's full name
+- **Email**: For updates and support
+- **Stellar Wallet Address**: To verify testnet participation
+- **Product Rating**: Rate CommitLock from 1-5 stars
+- **Feature Requests**: What features would you like to see next?
+- **General Feedback**: Any suggestions or issues
+
+#### 📊 User Responses Data
+
+All user responses are exported to an Excel sheet for analysis:
+
+**[View User Responses (CSV)](./docs/user-responses.csv)**
+
+The CSV file includes:
+- Timestamp of submission
+- User details (name, email, wallet address)
+- Product ratings and feedback
+- Feature requests and suggestions
+
+### 🚀 Improvement Roadmap (Based on User Feedback)
+
+Based on collected user feedback and testing, we have identified the following improvements for the next phase:
+
+#### Phase 1: Core Fixes & UX Improvements ✅
+
+1. **Real Token Transfers** (Completed)
+   - Added actual XLM deposit transfers using Stellar Asset Contract
+   - Implemented escrow system in smart contract
+   - Git Commit: `99889ed` - feat: redeploy contract with real XLM token transfers
+
+2. **Wallet Connection Improvements** (Completed)
+   - Fixed Freighter popup consistency issues
+   - Implemented proper account switching detection
+   - Git Commit: `f072562` - fix: wallet connect flow with isAllowed/getAddress
+
+3. **Enhanced Booking Details Page** (Completed)
+   - Added reservation ID, status badges, and full transaction details
+   - Context-aware deposit labels based on reservation status
+   - Stellar Explorer integration for host/guest addresses
+   - Git Commits: `956c4f9`, `d482d79` - BigInt fixes and enhanced booking UI
+
+4. **Removed Time Restrictions** (Completed)
+   - Removed 1-hour minimum future time restriction for better testing
+   - Git Commit: `066bc78` - fix: remove 1-hour minimum restriction
+
+#### Phase 2: Feature Enhancements (Planned)
+
+Based on user feedback, we plan to implement:
+
+1. **Multi-Token Support**
+   - Support for USDC and other Stellar assets beyond native XLM
+   - Allow hosts to choose deposit token type
+   - **Priority**: High | **Status**: Planning
+
+2. **Notification System**
+   - Email notifications for booking confirmations
+   - Reminders before reservation time
+   - Attendance confirmation alerts
+   - **Priority**: High | **Status**: Design Phase
+
+3. **Reputation System**
+   - Track host and guest reliability scores
+   - Display attendance history
+   - Incentivize good behavior
+   - **Priority**: Medium | **Status**: Research
+
+4. **Recurring Reservations**
+   - Support for weekly/monthly recurring slots
+   - Batch booking capabilities
+   - **Priority**: Medium | **Status**: Backlog
+
+5. **Mobile App**
+   - React Native mobile application
+   - Push notifications
+   - QR code check-in
+   - **Priority**: Low | **Status**: Future
+
+6. **Advanced Analytics Dashboard**
+   - Host analytics (booking rates, no-show rates)
+   - Revenue tracking
+   - Guest history
+   - **Priority**: Medium | **Status**: Backlog
+
+#### Phase 3: Mainnet Launch (Future)
+
+1. **Security Audit**
+   - Third-party smart contract audit
+   - Penetration testing
+   - **Status**: Pre-requisite for mainnet
+
+2. **Mainnet Deployment**
+   - Deploy to Stellar mainnet
+   - Production-ready frontend
+   - **Status**: Pending security audit
+
+3. **Marketing & Growth**
+   - Partner integrations (restaurants, event venues)
+   - User acquisition campaigns
+   - **Status**: Post-mainnet
+
+### 📝 Testing with Real Users
+
+#### Setup Test Environment
+
+1. **Deploy Contract**: Follow deployment instructions above
+2. **Deploy Frontend**: Deploy to Vercel or similar platform
+3. **Create Test Reservations**: Create 2-3 test reservations with small deposits (1-5 XLM)
+
+#### User Testing Checklist
+
+- [x] User can connect wallet successfully
+- [x] User can view all available reservations
+- [x] User can create a new reservation (as host)
+- [x] User can book a reservation (as guest)
+- [x] Deposit is locked correctly (real XLM transfer)
+- [x] Host can confirm attendance
+- [x] Deposit is refunded correctly (attended)
+- [x] Deposit is transferred correctly (no-show)
+- [x] Transaction hashes are displayed
+- [x] Error messages are clear and helpful
+- [ ] User can submit feedback via Google Form
+
+#### Test Wallet Addresses (6 Users - Verifiable on Stellar Explorer)
+
+The following Stellar testnet wallet addresses were used for testing and feedback collection:
+
+| # | Wallet Address | Stellar Explorer |
+|---|---------------|------------------|
+| 1 | `GCHL5OZXVWCPYHYPOGTE4I34QF722T3UWWJ2BCW62TJNSCW27ESYNNEL` | [View on Explorer](https://stellar.expert/explorer/testnet/account/GCHL5OZXVWCPYHYPOGTE4I34QF722T3UWWJ2BCW62TJNSCW27ESYNNEL) |
+| 2 | `GACWMMFQI2SHVOIRFEVFA24JHGLMYRIADR5PPR5L6LUZ4VGXKPXL7IEL` | [View on Explorer](https://stellar.expert/explorer/testnet/account/GACWMMFQI2SHVOIRFEVFA24JHGLMYRIADR5PPR5L6LUZ4VGXKPXL7IEL) |
+| 3 | `GB7JTK5W6ZD4OZJM3P73PTXF5KPN75YAQUE7HPOW2FGGLNHU3AYTVMCT` | [View on Explorer](https://stellar.expert/explorer/testnet/account/GB7JTK5W6ZD4OZJM3P73PTXF5KPN75YAQUE7HPOW2FGGLNHU3AYTVMCT) |
+| 4 | `GBDR5J6EJWEYQUCRZQIIEGTJU7W4BSYCN5I5TEKGESWYJXOARS4ETMFQ` | [View on Explorer](https://stellar.expert/explorer/testnet/account/GBDR5J6EJWEYQUCRZQIIEGTJU7W4BSYCN5I5TEKGESWYJXOARS4ETMFQ) |
+| 5 | `GCXD73CL6J7OMAYEZ3BLZLYDXUFHT6DTTUSRS7K6CZZIGZWI3K7CA5JP` | [View on Explorer](https://stellar.expert/explorer/testnet/account/GCXD73CL6J7OMAYEZ3BLZLYDXUFHT6DTTUSRS7K6CZZIGZWI3K7CA5JP) |
+| 6 | `GBQ25RFHI5DJASFDCK3MFHRXNLRDMYVTZNA7RPZM77JUXNRNPZO5KA2P` | [View on Explorer](https://stellar.expert/explorer/testnet/account/GBQ25RFHI5DJASFDCK3MFHRXNLRDMYVTZNA7RPZM77JUXNRNPZO5KA2P) |
+
+These addresses participated in testing reservation creation, booking, and attendance confirmation flows.
+
+#### Collect Feedback
+
+1. **Google Form**: Share the [onboarding form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform) with test users
+2. **Built-in Feedback**: Use the in-app feedback form at `/feedback`
+3. **CSV Export**: View collected responses in [docs/user-responses.csv](./docs/user-responses.csv)
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🔗 Links
+
+- **Stellar Documentation**: [https://developers.stellar.org](https://developers.stellar.org)
+- **Soroban Documentation**: [https://soroban.stellar.org](https://soroban.stellar.org)
+- **Stellar Laboratory**: [https://laboratory.stellar.org](https://laboratory.stellar.org)
+- **Stellar Expert**: [https://stellar.expert](https://stellar.expert)
+
+## 👥 Team
+
+Built with ❤️ for the Stellar ecosystem.
+
+## 📞 Support
+
+For support, please open an issue on GitHub or use the feedback form in the application.
+
+---
+
+**Note**: This is a testnet application. Do not use with real mainnet XLM.
+
+---
+
+## ✅ Submission Checklist
+
+| Requirement | Status |
+|-------------|--------|
+| Public GitHub repository | ✅ [nishant-uxs/CommitLock_BlueBelt](https://github.com/nishant-uxs/CommitLock_BlueBelt) |
+| README with complete documentation | ✅ This document |
+| Architecture document included | ✅ [ARCHITECTURE.md](./ARCHITECTURE.md) |
+| Minimum 10+ meaningful commits | ✅ 32+ commits |
+| Live demo link (deployed) | ✅ [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com) |
+| Demo video link (full MVP functionality) | ✅ [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM) |
+| List of 5+ user wallet addresses (verifiable on Stellar Explorer) | ✅ 6 addresses listed above with Explorer links |
+| User feedback documentation | ✅ [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform) + [User Responses CSV](./docs/user-responses.csv) |

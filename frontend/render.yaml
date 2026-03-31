@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: commitlock-frontend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_STELLAR_NETWORK
+        value: testnet
+      - key: NEXT_PUBLIC_CONTRACT_ID
+        value: CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5
+      - key: NEXT_PUBLIC_HORIZON_URL
+        value: https://horizon-testnet.stellar.org
+      - key: NEXT_PUBLIC_SOROBAN_RPC_URL
+        value: https://soroban-testnet.stellar.org
