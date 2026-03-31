@@ -9,7 +9,7 @@ import { Reservation } from '@/lib/stellar/types';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Link from 'next/link';
-import { Shield, Plus, Loader2 } from 'lucide-react';
+import { Shield, Plus, Loader2, BarChart3, Monitor } from 'lucide-react';
 
 export default function DashboardPage() {
   const { wallet } = useWallet();
@@ -77,6 +77,16 @@ export default function DashboardPage() {
               <Button>
                 <Plus className="h-4 w-4 mr-2" />
                 Create Reservation
+              </Button>
+            </Link>
+            <Link href="/metrics">
+              <Button variant="ghost" size="sm" className="gap-1">
+                <BarChart3 className="h-4 w-4" /> Metrics
+              </Button>
+            </Link>
+            <Link href="/monitoring">
+              <Button variant="ghost" size="sm" className="gap-1">
+                <Monitor className="h-4 w-4" /> Monitor
               </Button>
             </Link>
             <WalletConnect />
