@@ -9,6 +9,8 @@ import {
   isAllowed,
 } from '@stellar/freighter-api';
 import { WalletState } from '@/lib/stellar/types';
+import { logWalletConnect, logWalletDisconnect, logTransaction } from '@/lib/monitoring/logger';
+import { trackActiveUser } from '@/lib/metrics/tracker';
 
 interface WalletContextType {
   wallet: WalletState;
@@ -59,6 +61,10 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         connected: true,
         walletType: 'Freighter',
       });
+
+      // Track for monitoring and metrics
+      logWalletConnect(address);
+      trackActiveUser(address);
     } catch (error: any) {
       console.error('Error connecting wallet:', error);
       throw new Error(
@@ -69,6 +75,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const disconnectWallet = useCallback(() => {
+    logWalletDisconnect();
     setWallet({
       address: null,
       connected: false,
@@ -91,8 +98,10 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         throw new Error(result.error);
       }
 
+      logTransaction('signed', undefined);
       return result.signedTxXdr;
     } catch (error: any) {
+      logTransaction('sign_failed', undefined, error?.message);
       console.error('Error signing transaction:', error);
       throw new Error(error?.message || 'Failed to sign transaction');
     }
