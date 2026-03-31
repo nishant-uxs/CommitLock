@@ -535,7 +535,7 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 
 | Requirement | Status | Link |
 |-------------|--------|------|
-| Public GitHub repository | ✅ | [nishant-uxs/CommitLock_BlackBelt](https://github.com/nishant-uxs/CommitLock_BlackBelt) |
+| Public GitHub repository | ✅ | [nishant-uxs/CommitLock](https://github.com/nishant-uxs/CommitLock) |
 | README with complete documentation | ✅ | This document |
 | Technical documentation and user guide | ✅ | [TECHNICAL_DOCS.md](./docs/TECHNICAL_DOCS.md) + [USER_GUIDE.md](./docs/USER_GUIDE.md) |
 | Architecture document | ✅ | [ARCHITECTURE.md](./ARCHITECTURE.md) |
