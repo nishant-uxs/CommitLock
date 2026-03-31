@@ -1,29 +1,36 @@
-# CommitLock - Architecture Document
+# CommitLock - Architecture Document (Black Belt Edition)
 
 ## System Overview
 
-CommitLock is a decentralized no-show protection protocol built on the Stellar blockchain using Soroban smart contracts. The system enables hosts to create reservations with deposit requirements, and guests to book by locking XLM tokens in escrow.
+CommitLock is a production-ready decentralized no-show protection protocol built on the Stellar blockchain using Soroban smart contracts. The system enables hosts to create reservations with deposit requirements, and guests to book by locking XLM tokens in escrow. The Black Belt version adds fee sponsorship (gasless transactions), metrics tracking, production monitoring, data indexing, and comprehensive security measures.
 
 ## Architecture Diagram
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    Frontend (Next.js 14)                  │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌─────────┐ │
-│  │ Landing   │  │Dashboard │  │ Booking  │  │Feedback │ │
-│  │ Page      │  │  Page    │  │  Detail  │  │  Form   │ │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬────┘ │
-│       │              │             │              │       │
-│  ┌────┴──────────────┴─────────────┴──────────────┴────┐ │
-│  │              WalletContext (React Context)            │ │
-│  │         Manages wallet state & transaction signing   │ │
-│  └──────────────────────┬──────────────────────────────┘ │
-│                         │                                 │
-│  ┌──────────────────────┴──────────────────────────────┐ │
-│  │           CommitLockContract (contract.ts)           │ │
-│  │    Builds transactions, encodes/decodes ScVal       │ │
-│  └──────────────────────┬──────────────────────────────┘ │
-└─────────────────────────┼───────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                       Frontend (Next.js 14)                           │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌─────────┐ ┌───────────┐  │
+│  │ Landing   │ │Dashboard │ │ Booking  │ │Feedback │ │ Metrics   │  │
+│  │ Page      │ │  Page    │ │  Detail  │ │  Form   │ │ Dashboard │  │
+│  └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬────┘ └─────┬─────┘  │
+│       │             │            │             │            │         │
+│  ┌────┴─────────────┴────────────┴─────────────┴────────────┴──────┐ │
+│  │              WalletContext (React Context)                       │ │
+│  │    Manages wallet state, transaction signing, metrics tracking  │ │
+│  └──────────────────────┬──────────────────────────────────────────┘ │
+│                         │                                            │
+│  ┌──────────────────────┼──────────────────────────────────────────┐ │
+│  │  ┌─────────────────┐ │ ┌──────────────┐ ┌───────────────────┐  │ │
+│  │  │ CommitLock       │ │ │ Fee Sponsor  │ │ Metrics Tracker   │  │ │
+│  │  │ Contract.ts      │ │ │ Module       │ │ + Logger          │  │ │
+│  │  └────────┬─────────┘ │ └──────┬───────┘ └────────┬──────────┘  │ │
+│  │           │            │        │                  │             │ │
+│  │  ┌────────┴────────────┴────────┴──────────────────┴──────────┐ │ │
+│  │  │              API Routes (/api/*)                            │ │ │
+│  │  │  /fee-sponsor  /metrics  /health  /feedback  /indexer      │ │ │
+│  │  └────────────────────┬───────────────────────────────────────┘ │ │
+│  └───────────────────────┼─────────────────────────────────────────┘ │
+└──────────────────────────┼───────────────────────────────────────────┘
                           │
                 ┌─────────┴─────────┐
                 │  Stellar Network   │
