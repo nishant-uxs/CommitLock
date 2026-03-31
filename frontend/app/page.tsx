@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { WalletConnect } from "@/components/wallet/WalletConnect";
-import { Shield, Lock, CheckCircle, ArrowRight } from "lucide-react";
+import { Shield, Lock, CheckCircle, ArrowRight, BarChart3, Monitor, Zap } from "lucide-react";
 
 export default function Home() {
   return (
@@ -29,21 +29,28 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Link href="/dashboard">
               <Button size="lg" className="gap-2">
                 Launch App
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/feedback">
-              <Button size="lg" variant="outline">
-                Share Feedback
+            <Link href="/metrics">
+              <Button size="lg" variant="outline" className="gap-2">
+                <BarChart3 className="h-4 w-4" />
+                Metrics
+              </Button>
+            </Link>
+            <Link href="/monitoring">
+              <Button size="lg" variant="outline" className="gap-2">
+                <Monitor className="h-4 w-4" />
+                Monitoring
               </Button>
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mt-20">
+          <div className="grid md:grid-cols-4 gap-6 mt-20">
             <div className="p-6 bg-white rounded-lg shadow-sm border">
               <Lock className="h-12 w-12 text-primary mb-4 mx-auto" />
               <h3 className="text-xl font-semibold mb-2">Secure Escrow</h3>
@@ -65,6 +72,14 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-2">Host Protection</h3>
               <p className="text-muted-foreground">
                 No-shows mean you keep the deposit. Fair compensation for your time.
+              </p>
+            </div>
+
+            <div className="p-6 bg-white rounded-lg shadow-sm border">
+              <Zap className="h-12 w-12 text-primary mb-4 mx-auto" />
+              <h3 className="text-xl font-semibold mb-2">Gasless Transactions</h3>
+              <p className="text-muted-foreground">
+                Fee sponsorship means users don&apos;t pay gas fees. Sponsor covers network costs.
               </p>
             </div>
           </div>
@@ -116,11 +131,13 @@ export default function Home() {
       <footer className="container mx-auto px-4 py-8 mt-20 border-t">
         <div className="text-center text-muted-foreground">
           <p>Built on Stellar Testnet • Powered by Soroban Smart Contracts</p>
-          <p className="mt-2 text-sm">
-            <Link href="/feedback" className="hover:text-primary">
-              Share Feedback
-            </Link>
-          </p>
+          <div className="mt-3 flex gap-4 justify-center text-sm">
+            <Link href="/dashboard" className="hover:text-primary">Dashboard</Link>
+            <Link href="/create" className="hover:text-primary">Create</Link>
+            <Link href="/metrics" className="hover:text-primary">Metrics</Link>
+            <Link href="/monitoring" className="hover:text-primary">Monitoring</Link>
+            <Link href="/feedback" className="hover:text-primary">Feedback</Link>
+          </div>
         </div>
       </footer>
     </div>
