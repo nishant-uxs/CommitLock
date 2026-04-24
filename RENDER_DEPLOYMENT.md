@@ -18,13 +18,13 @@ Go to [render.com](https://render.com) and sign in with your GitHub account.
 
 1. Click **Dashboard** → **New +** → **Web Service**
 2. Click **Connect GitHub** (if not already connected)
-3. Select your repository: `nishant-uxs/CommitLock_BlueBelt`
+3. Select your repository: `nishant-uxs/CommitLock`
 4. Click **Connect**
 
 ### 3. Configure Service Settings
 
 **Basic Settings:**
-- **Name**: `commitlock-frontend` (or any name you prefer)
+- **Name**: `commitlock-blackbelt` (or any name you prefer)
 - **Region**: Choose closest to your users (e.g., Oregon, Frankfurt)
 - **Branch**: `main`
 - **Root Directory**: `frontend` ⚠️ **IMPORTANT**
@@ -45,6 +45,9 @@ Click **Advanced** and add these environment variables:
 | `NEXT_PUBLIC_CONTRACT_ID` | `CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5` |
 | `NEXT_PUBLIC_HORIZON_URL` | `https://horizon-testnet.stellar.org` |
 | `NEXT_PUBLIC_SOROBAN_RPC_URL` | `https://soroban-testnet.stellar.org` |
+| `NEXT_PUBLIC_FEE_SPONSOR_ENABLED` | `true` |
+| `NEXT_PUBLIC_FEE_SPONSOR_PUBLIC_KEY` | _(your sponsor public key)_ |
+| `FEE_SPONSOR_SECRET_KEY` | _(your sponsor secret key — keep private)_ |
 
 ### 5. Select Plan
 
@@ -62,7 +65,7 @@ Click **Advanced** and add these environment variables:
 
 ### 7. Verify Deployment
 
-Once deployed, you'll get a URL like: `https://commitlock-frontend.onrender.com`
+Once deployed, you'll get a URL like: `https://commitlock-blackbelt.onrender.com`
 
 **Test these features:**
 - ✅ Homepage loads
@@ -71,6 +74,10 @@ Once deployed, you'll get a URL like: `https://commitlock-frontend.onrender.com`
 - ✅ Create reservation form works
 - ✅ Booking flow works
 - ✅ Contract interactions succeed
+- ✅ `/metrics` dashboard renders with KPIs
+- ✅ `/monitoring` dashboard shows health + logs
+- ✅ `/api/health` returns JSON health status
+- ✅ Fee sponsorship works for gasless transactions
 
 ## Troubleshooting
 
@@ -141,4 +148,4 @@ Render will detect the push and redeploy automatically.
 
 **Deployed Contract**: `CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5`
 
-**GitHub Repo**: https://github.com/nishant-uxs/CommitLock_BlueBelt
+**GitHub Repo**: https://github.com/nishant-uxs/CommitLock

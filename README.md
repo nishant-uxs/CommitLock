@@ -10,7 +10,7 @@
 - **🎥 Demo Video**: [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM)
 - **📊 Metrics Dashboard**: [Live Metrics](/metrics) | [API](/api/metrics) | [Screenshot](./docs/screenshots/metrics-dashboard.png)
 - **🖥️ Monitoring Dashboard**: [System Health](/monitoring) | [Health API](/api/health) | [Screenshot](./docs/screenshots/monitoring-dashboard.png)
-- **🚀 Deployment Guide**: [DEPLOYMENT.md](./docs/DEPLOYMENT.md)
+- **🚀 Deployment Guide**: [RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md)
 - **🔐 Security Checklist**: [SECURITY.md](./SECURITY.md)
 - **📋 Google Form**: [CommitLock User Onboarding Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform)
 - **📊 User Feedback (32 users)**: [View User Responses (CSV)](./docs/user-responses.csv)
@@ -583,7 +583,33 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 
 ---
 
-## 🚀 Improvement Plan (Based on User Feedback)
+## � Dashboard Previews
+
+### Metrics Dashboard
+
+![Metrics Dashboard](./docs/screenshots/metrics-dashboard.png)
+
+**Highlights** (captured on Apr 2026):
+- **32** unique user wallets tracked
+- **495** total transactions processed
+- **141** reservations created, **102** bookings made
+- **90** gasless transactions via fee sponsorship
+- **177.71 XLM** total deposits locked, **79.65 XLM** refunded
+- **85.7%** attendance completion rate, **14.29%** no-show rate
+
+### Monitoring Dashboard
+
+![Monitoring Dashboard](./docs/screenshots/monitoring-dashboard.png)
+
+**Highlights** (captured on Apr 2026):
+- **HEALTHY** overall system status
+- All 4 services online: Frontend, Soroban RPC, Horizon, Contract
+- **151** info events, **25** warnings, **6** errors tracked in last 24h
+- Real-time log stream across all service sources (wallet, contract, transaction, fee-sponsor, indexer, api)
+
+---
+
+## �� Improvement Plan (Based on User Feedback)
 
 After analyzing feedback from our **32 onboarded users** in [user-responses.csv](./docs/user-responses.csv), we have identified the following key themes and improvement areas for the next phase:
 
