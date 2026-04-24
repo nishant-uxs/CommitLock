@@ -91,7 +91,7 @@ Built on Stellar Soroban | By Nishant Agarwal
 5. View metrics dashboard
 6. View monitoring dashboard
 
-**Live URL**: https://commitlock-bluebelt.onrender.com
+**Live URL**: https://commitlock.onrender.com
 
 ---
 
@@ -120,8 +120,8 @@ Built on Stellar Soroban | By Nishant Agarwal
 ---
 
 ## Slide 13: Links
-- **GitHub**: https://github.com/nishant-uxs/CommitLock_BlackBelt
-- **Live Demo**: https://commitlock-bluebelt.onrender.com
+- **GitHub**: https://github.com/nishant-uxs/CommitLock
+- **Live Demo**: https://commitlock.onrender.com
 - **Demo Video**: https://youtu.be/9h-ZS15NLMM
 - **User Feedback**: Google Form + CSV with 32 responses
 

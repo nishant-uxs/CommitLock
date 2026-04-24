@@ -65,7 +65,7 @@ Click **Advanced** and add these environment variables:
 
 ### 7. Verify Deployment
 
-Once deployed, you'll get a URL like: `https://commitlock-blackbelt.onrender.com`
+Once deployed, you'll get your own URL. Production instance of CommitLock is live at: `https://commitlock.onrender.com`
 
 **Test these features:**
 - ✅ Homepage loads

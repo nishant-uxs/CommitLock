@@ -29,7 +29,7 @@ CommitLock is a decentralized no-show protection platform. When you book a reser
 
 ### 2. Connecting to CommitLock
 
-1. Visit the app at [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com)
+1. Visit the app at [https://commitlock.onrender.com](https://commitlock.onrender.com)
 2. Click **"Connect Wallet"** button
 3. Freighter will popup asking for permission — click **Allow**
 4. Your wallet address will appear in the header

@@ -6,10 +6,10 @@
 
 ### 🔗 Quick Links
 
-- **🌐 Live Demo**: [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com)
+- **🌐 Live Demo**: [https://commitlock.onrender.com](https://commitlock.onrender.com)
 - **🎥 Demo Video**: [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM)
-- **📊 Metrics Dashboard**: [Live Metrics](/metrics) | [API](/api/metrics) | [Screenshot](./docs/screenshots/metrics-dashboard.png)
-- **🖥️ Monitoring Dashboard**: [System Health](/monitoring) | [Health API](/api/health) | [Screenshot](./docs/screenshots/monitoring-dashboard.png)
+- **📊 Metrics Dashboard**: [Live Metrics](https://commitlock.onrender.com/metrics) | [API](https://commitlock.onrender.com/api/metrics) | [Screenshot](./docs/screenshots/metrics-dashboard.png)
+- **🖥️ Monitoring Dashboard**: [System Health](https://commitlock.onrender.com/monitoring) | [Health API](https://commitlock.onrender.com/api/health) | [Screenshot](./docs/screenshots/monitoring-dashboard.png)
 - **🚀 Deployment Guide**: [RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md)
 - **🔐 Security Checklist**: [SECURITY.md](./SECURITY.md)
 - **📋 Google Form**: [CommitLock User Onboarding Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform)
@@ -542,7 +542,7 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 | Architecture document | ✅ | [ARCHITECTURE.md](./ARCHITECTURE.md) |
 | Minimum 30+ meaningful commits | ✅ | 30+ commits in repository |
 | Demo Day presentation prepared | ✅ | [DEMO_DAY.md](./docs/DEMO_DAY.md) |
-| Live demo link (deployed) | ✅ | [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com) |
+| Live demo link (deployed) | ✅ | [https://commitlock.onrender.com](https://commitlock.onrender.com) |
 | Demo video link | ✅ | [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM) |
 | 30+ verified user wallet addresses | ✅ | [32 users in CSV](./docs/user-responses.csv) |
 | Metrics dashboard (DAU, transactions, retention) | ✅ | `/metrics` page + [/api/metrics](/api/metrics) + [Screenshot](./docs/screenshots/metrics-dashboard.png) |
