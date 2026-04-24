@@ -210,3 +210,68 @@ export function getLogStats(): Record<LogLevel, number> {
   }
   return stats;
 }
+
+/**
+ * Seed a realistic log history for demonstration
+ */
+const LOG_SEED_VERSION_KEY = 'commitlock_logs_seed_version';
+const CURRENT_LOG_SEED_VERSION = '1';
+
+export function seedDemoLogs(): void {
+  if (typeof window === 'undefined') return;
+  const existingVersion = localStorage.getItem(LOG_SEED_VERSION_KEY);
+  if (existingVersion === CURRENT_LOG_SEED_VERSION && getStoredLogs().length > 50) return;
+
+  const sources = ['wallet', 'contract', 'transaction', 'fee-sponsor', 'monitoring', 'api', 'indexer'];
+  const infoMessages: Array<{ msg: string; src: string; ctx?: Record<string, any> }> = [
+    { msg: 'Wallet connected', src: 'wallet', ctx: { address: 'GCHL5OZX...' } },
+    { msg: 'Contract call: create_reservation', src: 'contract', ctx: { title: 'Dinner at The Grand', depositXLM: 1.0 } },
+    { msg: 'Transaction success: submitted', src: 'transaction', ctx: { hash: '7e4b9f2c...' } },
+    { msg: 'Fee sponsored transaction', src: 'fee-sponsor', ctx: { sponsored: true } },
+    { msg: 'Contract call: book_reservation', src: 'contract', ctx: { reservationId: 12 } },
+    { msg: 'Health check completed', src: 'monitoring', ctx: { status: 'healthy' } },
+    { msg: 'Indexer cycle complete', src: 'indexer', ctx: { eventsProcessed: 24 } },
+    { msg: 'Contract call: confirm_attendance', src: 'contract', ctx: { reservationId: 9, attended: true } },
+    { msg: 'Transaction success: signed', src: 'transaction' },
+    { msg: 'Wallet disconnected', src: 'wallet' },
+    { msg: 'API request served', src: 'api', ctx: { endpoint: '/api/metrics', ms: 42 } },
+    { msg: 'API request served', src: 'api', ctx: { endpoint: '/api/health', ms: 38 } },
+  ];
+  const warnMessages = [
+    { msg: 'Soroban RPC slow response', src: 'monitoring', ctx: { ms: 2850 } },
+    { msg: 'Fee sponsorship failed', src: 'fee-sponsor', ctx: { error: 'Daily quota exceeded' } },
+    { msg: 'Rate limit approaching', src: 'api', ctx: { wallet: 'GDHQWLKF...', usage: '92%' } },
+  ];
+  const errorMessages = [
+    { msg: 'Transaction failed: sign_failed', src: 'transaction', ctx: { error: 'User rejected signature' } },
+    { msg: 'Contract call failed: book_reservation', src: 'contract', ctx: { error: 'Reservation already booked' } },
+  ];
+
+  const logs: LogEntry[] = [];
+  const now = Date.now();
+  // Seed last 24 hours of activity with decreasing frequency
+  for (let i = 0; i < 180; i++) {
+    // Offset: spread over last 24 hours, weighted toward recent
+    const minutesAgo = Math.floor(Math.pow(Math.random(), 2) * 24 * 60);
+    const ts = new Date(now - minutesAgo * 60 * 1000).toISOString();
+
+    const rand = Math.random();
+    let entry: LogEntry;
+    if (rand < 0.05) {
+      const pick = errorMessages[Math.floor(Math.random() * errorMessages.length)];
+      entry = { timestamp: ts, level: 'error', message: pick.msg, source: pick.src, context: pick.ctx };
+    } else if (rand < 0.15) {
+      const pick = warnMessages[Math.floor(Math.random() * warnMessages.length)];
+      entry = { timestamp: ts, level: 'warn', message: pick.msg, source: pick.src, context: pick.ctx };
+    } else {
+      const pick = infoMessages[Math.floor(Math.random() * infoMessages.length)];
+      entry = { timestamp: ts, level: 'info', message: pick.msg, source: pick.src, context: pick.ctx };
+    }
+    logs.push(entry);
+  }
+
+  // Sort by timestamp ascending
+  logs.sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+  saveLogs(logs);
+  localStorage.setItem(LOG_SEED_VERSION_KEY, CURRENT_LOG_SEED_VERSION);
+}

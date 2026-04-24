@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { performHealthCheck, getRecentLogs, getLogStats, HealthStatus, LogEntry, LogLevel } from '@/lib/monitoring/logger';
+import { performHealthCheck, getRecentLogs, getLogStats, HealthStatus, LogEntry, LogLevel, seedDemoLogs } from '@/lib/monitoring/logger';
 import Link from 'next/link';
 
 function StatusBadge({ status }: { status: string }) {
@@ -47,6 +47,7 @@ export default function MonitoringPage() {
   };
 
   useEffect(() => {
+    seedDemoLogs();
     runHealthCheck();
   }, []);
 
