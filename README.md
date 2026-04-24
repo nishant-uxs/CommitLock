@@ -8,8 +8,9 @@
 
 - **🌐 Live Demo**: [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com)
 - **🎥 Demo Video**: [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM)
-- **📊 Metrics Dashboard**: [Live Metrics](/metrics) | [API](/api/metrics)
-- **🖥️ Monitoring Dashboard**: [System Health](/monitoring) | [Health API](/api/health)
+- **📊 Metrics Dashboard**: [Live Metrics](/metrics) | [API](/api/metrics) | [Screenshot](./docs/screenshots/metrics-dashboard.png)
+- **🖥️ Monitoring Dashboard**: [System Health](/monitoring) | [Health API](/api/health) | [Screenshot](./docs/screenshots/monitoring-dashboard.png)
+- **🚀 Deployment Guide**: [DEPLOYMENT.md](./docs/DEPLOYMENT.md)
 - **🔐 Security Checklist**: [SECURITY.md](./SECURITY.md)
 - **📋 Google Form**: [CommitLock User Onboarding Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform)
 - **📊 User Feedback (32 users)**: [View User Responses (CSV)](./docs/user-responses.csv)
@@ -544,8 +545,8 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 | Live demo link (deployed) | ✅ | [https://commitlock-bluebelt.onrender.com](https://commitlock-bluebelt.onrender.com) |
 | Demo video link | ✅ | [https://youtu.be/9h-ZS15NLMM](https://youtu.be/9h-ZS15NLMM) |
 | 30+ verified user wallet addresses | ✅ | [32 users in CSV](./docs/user-responses.csv) |
-| Metrics dashboard (DAU, transactions, retention) | ✅ | `/metrics` page + [/api/metrics](/api/metrics) |
-| Monitoring dashboard (health checks, logs) | ✅ | `/monitoring` page + [/api/health](/api/health) |
+| Metrics dashboard (DAU, transactions, retention) | ✅ | `/metrics` page + [/api/metrics](/api/metrics) + [Screenshot](./docs/screenshots/metrics-dashboard.png) |
+| Monitoring dashboard (health checks, logs) | ✅ | `/monitoring` page + [/api/health](/api/health) + [Screenshot](./docs/screenshots/monitoring-dashboard.png) |
 | Security checklist completed | ✅ | [SECURITY.md](./SECURITY.md) — 24-point audit |
 | Data indexing implemented | ✅ | [/api/metrics/indexer](/api/metrics/indexer) + [indexer.ts](./frontend/lib/stellar/indexer.ts) |
 | Advanced feature implemented | ✅ | **Fee Sponsorship** — Gasless transactions via Stellar Fee Bump |
@@ -579,3 +580,93 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 5. Serve aggregated data via `/api/metrics/indexer` endpoint
 
 **Dashboard**: `/metrics` page shows indexed transaction data, daily breakdowns, and trend charts.
+
+---
+
+## 🚀 Improvement Plan (Based on User Feedback)
+
+After analyzing feedback from our **32 onboarded users** in [user-responses.csv](./docs/user-responses.csv), we have identified the following key themes and improvement areas for the next phase:
+
+### 📊 Feedback Analysis Summary
+
+| Feedback Theme | Users Mentioned | Priority |
+|----------------|-----------------|----------|
+| Mobile responsiveness needs work | 8 users | 🔴 High |
+| Want email/push notifications for reservations | 11 users | 🔴 High |
+| Request for USDC / stablecoin support | 6 users | 🟡 Medium |
+| Host reputation/rating system | 7 users | 🟡 Medium |
+| Better error messages on failed transactions | 5 users | 🟡 Medium |
+| Multi-language support (Spanish, Hindi) | 4 users | 🟢 Low |
+| Calendar integration (Google/Outlook) | 3 users | 🟢 Low |
+
+### 🎯 Planned Improvements (Next Phase)
+
+#### Phase 1 — Immediate (Within 2 weeks)
+
+**1. Mobile-First UI Redesign** — Addressing feedback from 8 users
+- Redesign dashboard, metrics, monitoring pages for mobile
+- Touch-optimized reservation cards and forms
+- Bottom navigation for mobile devices
+- Related commits (foundation): [`ba1201e`](https://github.com/nishant-uxs/CommitLock/commit/ba1201e) (landing nav), [`36d40a1`](https://github.com/nishant-uxs/CommitLock/commit/36d40a1) (dashboard nav)
+
+**2. Better Error Handling** — Addressing feedback from 5 users
+- User-friendly error messages instead of raw SDK errors
+- ErrorBoundary already implemented: [`b91f9f6`](https://github.com/nishant-uxs/CommitLock/commit/b91f9f6)
+- Next: Wrap all contract calls with translated error messages
+
+#### Phase 2 — Short-term (1-2 months)
+
+**3. Email & Push Notifications** — Addressing feedback from 11 users
+- Integrate SendGrid for email notifications (booking confirmed, attendance reminder)
+- Browser push notifications via Web Push API
+- SMS reminders via Twilio (optional)
+- Foundation already built: [`fa3dccd`](https://github.com/nishant-uxs/CommitLock/commit/fa3dccd) (WalletContext events)
+
+**4. Host Reputation System** — Addressing feedback from 7 users
+- On-chain reputation score based on attendance rate
+- Display host rating on reservation cards
+- Extend contract with `get_host_stats(address)` method
+- Related commits: [`abb7c07`](https://github.com/nishant-uxs/CommitLock/commit/abb7c07) (contract instrumentation), [`62fb329`](https://github.com/nishant-uxs/CommitLock/commit/62fb329) (indexer base for historical data)
+
+#### Phase 3 — Medium-term (3-4 months)
+
+**5. Multi-Token Support** — Addressing feedback from 6 users
+- Add USDC and EURC as deposit options via Stellar Asset Contract (SAC)
+- Token selector in reservation creation flow
+- Foundation: [`c9423a2`](https://github.com/nishant-uxs/CommitLock/commit/c9423a2) (fee sponsorship proves multi-asset capability)
+
+**6. Data Indexing Expansion**
+- Build a proper off-chain indexer database (PostgreSQL)
+- Historical metrics dashboard with full 90-day retention
+- Foundation: [`62fb329`](https://github.com/nishant-uxs/CommitLock/commit/62fb329) (indexer module), [`00b5b2b`](https://github.com/nishant-uxs/CommitLock/commit/00b5b2b) (metrics tracker)
+
+#### Phase 4 — Long-term (6+ months)
+
+**7. Multi-Language Support** — Addressing feedback from 4 users
+- i18n integration (next-intl)
+- Start with Spanish + Hindi based on user geography
+
+**8. Calendar Integration** — Addressing feedback from 3 users
+- Google Calendar / Outlook add-to-calendar buttons
+- .ics file generation for reservations
+
+**9. Mainnet Migration**
+- Complete security audit (extend [`9b5452e`](https://github.com/nishant-uxs/CommitLock/commit/9b5452e) — security checklist)
+- Third-party audit of smart contract
+- Migrate contract to Stellar Mainnet
+- Production monitoring extended: [`5b1ed57`](https://github.com/nishant-uxs/CommitLock/commit/5b1ed57)
+
+### 📈 Scaling Goals for Next Level
+
+- Scale from **32 → 200 users** through community partnerships
+- Onboard **10+ real restaurant/venue hosts**
+- Target **500+ successful bookings** with <5% no-show rate
+- Establish **governance proposals** for platform improvements
+- Community building: Discord server, weekly updates, bounty program
+
+### 🔗 Community & Contribution Tracking
+
+All improvements will be tracked via:
+- GitHub Issues: [github.com/nishant-uxs/CommitLock/issues](https://github.com/nishant-uxs/CommitLock/issues)
+- Project Board for roadmap visibility
+- [CHANGELOG.md](./docs/CHANGELOG.md) updated with every release
