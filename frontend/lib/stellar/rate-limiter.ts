@@ -66,7 +66,8 @@ export function getRemainingQuota(walletAddress: string): number {
  */
 export function cleanupExpiredEntries(): void {
   const now = Date.now();
-  for (const [key, entry] of rateLimitMap.entries()) {
+  const entries = Array.from(rateLimitMap.entries());
+  for (const [key, entry] of entries) {
     if (now - entry.windowStart > WINDOW_MS) {
       rateLimitMap.delete(key);
     }
