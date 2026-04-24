@@ -15,7 +15,7 @@
 - **📋 Google Form**: [CommitLock User Onboarding Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform)
 - **📊 User Feedback (32 users)**: [View User Responses (CSV)](./docs/user-responses.csv)
 - **🔍 Contract on Stellar Expert**: [View Contract](https://stellar.expert/explorer/testnet/contract/CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5)
-- **🐦 Community Contribution**: [Twitter Post](https://twitter.com) *(post your CommitLock tweet link here)*
+- **🐦 Community Contribution**: [Twitter Post](https://x.com/Nishant36608237/status/2047728408986259495)
 
 ## 🌟 Features
 
@@ -550,7 +550,7 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 | Security checklist completed | ✅ | [SECURITY.md](./SECURITY.md) — 24-point audit |
 | Data indexing implemented | ✅ | [/api/metrics/indexer](/api/metrics/indexer) + [indexer.ts](./frontend/lib/stellar/indexer.ts) |
 | Advanced feature implemented | ✅ | **Fee Sponsorship** — Gasless transactions via Stellar Fee Bump |
-| Community contribution | ✅ | [Twitter Post](https://twitter.com) *(add your tweet link)* |
+| Community contribution | ✅ | [Twitter Post](https://x.com/Nishant36608237/status/2047728408986259495) |
 | User feedback documentation | ✅ | [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform) + [CSV](./docs/user-responses.csv) |
 
 ### ⚡ Advanced Feature: Fee Sponsorship (Gasless Transactions)
