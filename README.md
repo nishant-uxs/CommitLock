@@ -633,11 +633,11 @@ After analyzing feedback from our **32 onboarded users** in [user-responses.csv]
 - Redesign dashboard, metrics, monitoring pages for mobile
 - Touch-optimized reservation cards and forms
 - Bottom navigation for mobile devices
-- Related commits (foundation): [`ba1201e`](https://github.com/nishant-uxs/CommitLock/commit/ba1201e) (landing nav), [`36d40a1`](https://github.com/nishant-uxs/CommitLock/commit/36d40a1) (dashboard nav)
+- Related commits (foundation): [`d9ffb1a`](https://github.com/nishant-uxs/CommitLock/commit/d9ffb1a) (landing nav), [`e68b38b`](https://github.com/nishant-uxs/CommitLock/commit/e68b38b) (dashboard nav)
 
 **2. Better Error Handling** — Addressing feedback from 5 users
 - User-friendly error messages instead of raw SDK errors
-- ErrorBoundary already implemented: [`b91f9f6`](https://github.com/nishant-uxs/CommitLock/commit/b91f9f6)
+- ErrorBoundary already implemented: [`dcd5818`](https://github.com/nishant-uxs/CommitLock/commit/dcd5818)
 - Next: Wrap all contract calls with translated error messages
 
 #### Phase 2 — Short-term (1-2 months)
@@ -646,13 +646,13 @@ After analyzing feedback from our **32 onboarded users** in [user-responses.csv]
 - Integrate SendGrid for email notifications (booking confirmed, attendance reminder)
 - Browser push notifications via Web Push API
 - SMS reminders via Twilio (optional)
-- Foundation already built: [`fa3dccd`](https://github.com/nishant-uxs/CommitLock/commit/fa3dccd) (WalletContext events)
+- Foundation already built: [`8412bd7`](https://github.com/nishant-uxs/CommitLock/commit/8412bd7) (WalletContext events)
 
 **4. Host Reputation System** — Addressing feedback from 7 users
 - On-chain reputation score based on attendance rate
 - Display host rating on reservation cards
 - Extend contract with `get_host_stats(address)` method
-- Related commits: [`abb7c07`](https://github.com/nishant-uxs/CommitLock/commit/abb7c07) (contract instrumentation), [`62fb329`](https://github.com/nishant-uxs/CommitLock/commit/62fb329) (indexer base for historical data)
+- Related commits: [`9e3581a`](https://github.com/nishant-uxs/CommitLock/commit/9e3581a) (contract instrumentation), [`62fb329`](https://github.com/nishant-uxs/CommitLock/commit/62fb329) (indexer base for historical data)
 
 #### Phase 3 — Medium-term (3-4 months)
 
