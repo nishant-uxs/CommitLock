@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300">
+  <defs>
+    <linearGradient id="bannerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e3a5f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="lockGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e0e7ff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="300" fill="url(#bannerBg)" rx="12" />
+
+  <!-- Grid pattern overlay -->
+  <g opacity="0.04" stroke="#60a5fa" stroke-width="1">
+    <line x1="0" y1="60" x2="1200" y2="60" />
+    <line x1="0" y1="120" x2="1200" y2="120" />
+    <line x1="0" y1="180" x2="1200" y2="180" />
+    <line x1="0" y1="240" x2="1200" y2="240" />
+    <line x1="200" y1="0" x2="200" y2="300" />
+    <line x1="400" y1="0" x2="400" y2="300" />
+    <line x1="600" y1="0" x2="600" y2="300" />
+    <line x1="800" y1="0" x2="800" y2="300" />
+    <line x1="1000" y1="0" x2="1000" y2="300" />
+  </g>
+
+  <!-- Decorative stars scattered -->
+  <g opacity="0.15">
+    <polygon points="80,40 84,56 100,60 84,64 80,80 76,64 60,60 76,56" fill="url(#starGrad)" />
+    <polygon points="180,220 183,232 195,235 183,238 180,250 177,238 165,235 177,232" fill="url(#starGrad)" />
+    <polygon points="1050,50 1053,62 1065,65 1053,68 1050,80 1047,68 1035,65 1047,62" fill="url(#starGrad)" />
+    <polygon points="1100,230 1103,242 1115,245 1103,248 1100,260 1097,248 1085,245 1097,242" fill="url(#starGrad)" />
+    <polygon points="950,240 952,248 960,250 952,252 950,260 948,252 940,250 948,248" fill="url(#starGrad)" />
+  </g>
+
+  <!-- Orbiting dots -->
+  <circle cx="120" cy="150" r="4" fill="#60a5fa" opacity="0.2" />
+  <circle cx="200" cy="80" r="3" fill="#93c5fd" opacity="0.15" />
+  <circle cx="1020" cy="120" r="5" fill="#60a5fa" opacity="0.2" />
+  <circle cx="1150" cy="170" r="3" fill="#93c5fd" opacity="0.15" />
+
+  <!-- Lock icon -->
+  <g transform="translate(280, 80)">
+    <!-- Lock body -->
+    <rect x="0" y="50" width="80" height="62" rx="10" ry="10" fill="url(#lockGrad)" />
+    <!-- Lock shackle -->
+    <path d="M 13 50 L 13 32 Q 13 8 40 8 Q 67 8 67 32 L 67 50" fill="none" stroke="#fbbf24" stroke-width="10" stroke-linecap="round" />
+    <!-- Keyhole -->
+    <circle cx="40" cy="76" r="10" fill="#1e3a5f" />
+    <rect x="37" y="79" width="6" height="16" rx="2" fill="#1e3a5f" />
+  </g>
+
+  <!-- Title text -->
+  <text x="400" y="125" font-family="'Segoe UI', Arial, sans-serif" font-size="64" font-weight="700" fill="url(#textGrad)" letter-spacing="-1">CommitLock</text>
+
+  <!-- Tagline -->
+  <text x="400" y="168" font-family="'Segoe UI', Arial, sans-serif" font-size="22" fill="#94a3b8" letter-spacing="0.5">Stop No-Shows with Blockchain</text>
+
+  <!-- Subtitle badges -->
+  <g transform="translate(400, 190)">
+    <!-- Stellar badge -->
+    <rect x="0" y="0" width="115" height="30" rx="15" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1" />
+    <text x="57" y="20" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#60a5fa" text-anchor="middle" font-weight="600">Stellar Soroban</text>
+
+    <!-- Next.js badge -->
+    <rect x="125" y="0" width="82" height="30" rx="15" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1" />
+    <text x="166" y="20" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#60a5fa" text-anchor="middle" font-weight="600">Next.js 14</text>
+
+    <!-- Gasless badge -->
+    <rect x="217" y="0" width="118" height="30" rx="15" fill="#1e3a5f" stroke="#f59e0b" stroke-width="1" />
+    <text x="276" y="20" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#fbbf24" text-anchor="middle" font-weight="600">Gasless Txns</text>
+
+    <!-- Users badge -->
+    <rect x="345" y="0" width="100" height="30" rx="15" fill="#1e3a5f" stroke="#10b981" stroke-width="1" />
+    <text x="395" y="20" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#34d399" text-anchor="middle" font-weight="600">32+ Users</text>
+  </g>
+
+  <!-- Decorative border line at bottom -->
+  <rect x="0" y="290" width="1200" height="10" fill="#3b82f6" opacity="0.3" rx="0" />
+  <rect x="0" y="293" width="400" height="7" fill="#fbbf24" opacity="0.6" rx="0" />
+</svg>
