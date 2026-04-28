@@ -1,6 +1,18 @@
-# CommitLock - Decentralized No-Show Protection Protocol
+<p align="center">
+  <img src="./docs/logo.svg" alt="CommitLock Logo" width="120" height="120" />
+</p>
 
-![CommitLock Banner](https://via.placeholder.com/1200x300/3B82F6/FFFFFF?text=CommitLock+-+Stop+No-Shows+with+Blockchain)
+<h1 align="center">CommitLock</h1>
+<p align="center"><strong>Decentralized No-Show Protection Protocol</strong></p>
+
+<p align="center">
+  <a href="https://github.com/nishant-uxs/CommitLock/actions/workflows/ci.yml"><img src="https://github.com/nishant-uxs/CommitLock/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/nishant-uxs/CommitLock/actions/workflows/cd.yml"><img src="https://github.com/nishant-uxs/CommitLock/actions/workflows/cd.yml/badge.svg" alt="CD" /></a>
+  <a href="https://commitlock.onrender.com"><img src="https://img.shields.io/badge/Live-commitlock.onrender.com-blue?style=flat&logo=render" alt="Live Demo" /></a>
+  <a href="https://stellar.expert/explorer/testnet/contract/CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5"><img src="https://img.shields.io/badge/Stellar-Testnet-7c3aed?logo=stellar" alt="Stellar Testnet" /></a>
+</p>
+
+![CommitLock Banner](./docs/banner.svg)
 
 **CommitLock** is a decentralized no-show protection protocol built on Stellar Soroban smart contracts. It prevents users from booking services and not showing up by requiring refundable XLM deposits.
 
@@ -532,6 +544,41 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 
 ---
 
+## 🔄 CI/CD Pipelines
+
+CommitLock uses **GitHub Actions** for automated CI/CD. Every push to `main` triggers the full pipeline.
+
+### CI Pipeline (`.github/workflows/ci.yml`)
+
+| Job | What it does | Blocking? |
+|-----|-------------|-----------|
+| **Lint & Type Check** | Runs `tsc --noEmit` and `next lint` | ✅ Yes |
+| **Build** | Full `next build` with production env vars | ✅ Yes |
+| **Security Audit** | `npm audit` + scans for hardcoded secrets | ⚠️ Advisory |
+
+### CD Pipeline (`.github/workflows/cd.yml`)
+
+| Step | What it does |
+|------|-------------|
+| **Build Verification** | Ensures production build passes before deploy |
+| **Render Auto-Deploy** | Render picks up `main` via Blueprint (`render.yaml`) |
+| **Health Check** | Pings `/api/health` endpoint post-deploy |
+| **Summary** | Writes deployment summary to GitHub Actions |
+
+### Pipeline Flow
+
+```
+Push to main
+    │
+    ├─── CI ───► Lint → Type Check → Build → Security Audit
+    │
+    └─── CD ───► Build Verify → Render Deploy → Health Check
+```
+
+Badges at the top of this README show real-time CI/CD status.
+
+---
+
 ## ✅ Black Belt Submission Checklist
 
 | Requirement | Status | Link |
@@ -552,6 +599,8 @@ For support, please open an issue on GitHub or use the feedback form in the appl
 | Advanced feature implemented | ✅ | **Fee Sponsorship** — Gasless transactions via Stellar Fee Bump |
 | Community contribution | ✅ | [Twitter Post](https://x.com/Nishant36608237/status/2047728408986259495) |
 | User feedback documentation | ✅ | [Google Form](https://docs.google.com/forms/d/e/1FAIpQLSfguzIG0QRxGyqE05ZFLUUYfGEgbQTKePCYyHDNTyE9oMQ5Pg/viewform) + [CSV](./docs/user-responses.csv) |
+| CI/CD Pipelines | ✅ | [CI](.github/workflows/ci.yml) (lint, build, audit) + [CD](.github/workflows/cd.yml) (deploy, health check) |
+| Proper branding & logo | ✅ | [Logo](./docs/logo.svg) + [Banner](./docs/banner.svg) |
 
 ### ⚡ Advanced Feature: Fee Sponsorship (Gasless Transactions)
 
