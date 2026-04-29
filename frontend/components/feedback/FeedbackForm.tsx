@@ -54,51 +54,62 @@ export function FeedbackForm() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Share Your Feedback</CardTitle>
+    <Card className="border-slate-200 shadow-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-xl">Share Your Feedback</CardTitle>
         <CardDescription>Help us improve CommitLock by sharing your experience</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              placeholder="Your name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-            />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="name" className="text-sm font-medium text-slate-700">Name</Label>
+              <Input
+                id="name"
+                placeholder="Your name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                required
+                className="h-11"
+              />
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-sm font-medium text-slate-700">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                required
+                className="h-11"
+              />
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="your.email@example.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
+          <div className="space-y-1.5">
+            <Label className="text-sm font-medium text-slate-700">Rating</Label>
+            <div className="flex gap-2">
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, rating: String(n) })}
+                  className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all ${
+                    parseInt(formData.rating) >= n
+                      ? 'bg-amber-100 text-amber-700 border-2 border-amber-300'
+                      : 'bg-slate-50 text-slate-400 border border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="rating">Rating (1-5)</Label>
-            <Input
-              id="rating"
-              type="number"
-              min="1"
-              max="5"
-              value={formData.rating}
-              onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="feedback">Your Feedback</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="feedback" className="text-sm font-medium text-slate-700">Your Feedback</Label>
             <Textarea
               id="feedback"
               placeholder="Tell us about your experience with CommitLock..."
@@ -106,10 +117,11 @@ export function FeedbackForm() {
               onChange={(e) => setFormData({ ...formData, feedback: e.target.value })}
               rows={5}
               required
+              className="resize-none"
             />
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full h-11 font-semibold shadow-sm" disabled={loading}>
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

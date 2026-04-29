@@ -96,38 +96,40 @@ export function CreateReservationForm() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Create New Reservation</CardTitle>
-        <CardDescription>Set up a new reservation slot with deposit protection</CardDescription>
+    <Card className="border-slate-200 shadow-sm">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-xl">New Reservation</CardTitle>
+        <CardDescription>Set up a deposit-protected reservation slot</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="title">Title</Label>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-1.5">
+            <Label htmlFor="title" className="text-sm font-medium text-slate-700">Title</Label>
             <Input
               id="title"
-              placeholder="e.g., Dinner Reservation"
+              placeholder="e.g., Dinner at The Grand"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               required
+              className="h-11"
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="description" className="text-sm font-medium text-slate-700">Description</Label>
             <Textarea
               id="description"
-              placeholder="Provide details about the reservation"
+              placeholder="Provide details — location, dress code, what to expect..."
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               required
+              className="min-h-[100px] resize-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="date">Date</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="date" className="text-sm font-medium text-slate-700">Date</Label>
               <Input
                 id="date"
                 type="date"
@@ -135,23 +137,25 @@ export function CreateReservationForm() {
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                 required
+                className="h-11"
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="time">Time</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="time" className="text-sm font-medium text-slate-700">Time</Label>
               <Input
                 id="time"
                 type="time"
                 value={formData.time}
                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                 required
+                className="h-11"
               />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="deposit">Deposit Amount (XLM)</Label>
+          <div className="space-y-1.5">
+            <Label htmlFor="deposit" className="text-sm font-medium text-slate-700">Deposit Amount (XLM)</Label>
             <Input
               id="deposit"
               type="number"
@@ -161,14 +165,16 @@ export function CreateReservationForm() {
               value={formData.deposit}
               onChange={(e) => setFormData({ ...formData, deposit: e.target.value })}
               required
+              className="h-11"
             />
+            <p className="text-xs text-slate-400">Guests will lock this amount. It&apos;s refunded if they attend.</p>
           </div>
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full h-11 font-semibold shadow-sm" disabled={loading}>
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating...
+                Creating Reservation...
               </>
             ) : (
               'Create Reservation'

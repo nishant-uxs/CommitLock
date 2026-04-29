@@ -19,22 +19,21 @@ export function WalletConnect() {
   if (wallet.connected && wallet.address) {
     return (
       <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2 px-4 py-2 bg-secondary rounded-md">
-          <Wallet className="h-4 w-4" />
-          <span className="text-sm font-medium">{formatAddress(wallet.address)}</span>
-          <span className="text-xs text-muted-foreground">({wallet.walletType})</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-lg border border-slate-200">
+          <span className="w-2 h-2 rounded-full bg-emerald-500" />
+          <span className="text-sm font-medium text-slate-700">{formatAddress(wallet.address)}</span>
+          <span className="text-[10px] text-slate-400 uppercase tracking-wider">{wallet.walletType}</span>
         </div>
-        <Button variant="outline" size="sm" onClick={disconnectWallet}>
-          <LogOut className="h-4 w-4 mr-2" />
-          Disconnect
+        <Button variant="ghost" size="sm" onClick={disconnectWallet} className="text-slate-400 hover:text-slate-600 h-8 px-2">
+          <LogOut className="h-3.5 w-3.5" />
         </Button>
       </div>
     );
   }
 
   return (
-    <Button onClick={handleConnect}>
-      <Wallet className="h-4 w-4 mr-2" />
+    <Button onClick={handleConnect} size="sm" className="gap-1.5 shadow-sm">
+      <Wallet className="h-3.5 w-3.5" />
       Connect Wallet
     </Button>
   );

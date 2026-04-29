@@ -1,48 +1,44 @@
 'use client';
 
 import { WalletConnect } from '@/components/wallet/WalletConnect';
+import { Navbar } from '@/components/layout/Navbar';
 import { CreateReservationForm } from '@/components/reservation/CreateReservationForm';
 import { useWallet } from '@/contexts/WalletContext';
 import Link from 'next/link';
-import { Shield, ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function CreatePage() {
   const { wallet } = useWallet();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <header className="container mx-auto px-4 py-6 border-b bg-white">
-        <nav className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Shield className="h-8 w-8 text-primary" />
-            <h1 className="text-2xl font-bold">CommitLock</h1>
-          </Link>
-          <WalletConnect />
-        </nav>
-      </header>
+    <div className="min-h-screen bg-slate-50">
+      <Navbar />
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <Link href="/dashboard">
-            <Button variant="ghost" className="mb-6">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
-          </Link>
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8">
+        <Link href="/dashboard">
+          <Button variant="ghost" size="sm" className="mb-6 text-slate-500 hover:text-slate-700 gap-1.5 -ml-2">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Back to Dashboard
+          </Button>
+        </Link>
 
-          {!wallet.connected ? (
-            <div className="text-center space-y-4 py-12">
-              <h2 className="text-2xl font-bold">Connect Your Wallet</h2>
-              <p className="text-muted-foreground">
-                Please connect your wallet to create a reservation
-              </p>
-              <WalletConnect />
+        {!wallet.connected ? (
+          <div className="text-center py-20 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-50 mb-6">
+              <Wallet className="h-7 w-7 text-blue-600" />
             </div>
-          ) : (
+            <h2 className="text-2xl font-bold text-slate-900 mb-2">Connect Your Wallet</h2>
+            <p className="text-slate-500 mb-8">
+              Link your wallet to create a deposit-protected reservation.
+            </p>
+            <WalletConnect />
+          </div>
+        ) : (
+          <div className="animate-fade-in">
             <CreateReservationForm />
-          )}
-        </div>
+          </div>
+        )}
       </main>
     </div>
   );
