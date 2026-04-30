@@ -18,22 +18,26 @@ export function WalletConnect() {
 
   if (wallet.connected && wallet.address) {
     return (
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 rounded-lg border border-slate-200">
-          <span className="w-2 h-2 rounded-full bg-emerald-500" />
-          <span className="text-sm font-medium text-slate-700">{formatAddress(wallet.address)}</span>
-          <span className="text-[10px] text-slate-400 uppercase tracking-wider">{wallet.walletType}</span>
+      <div className="flex items-center gap-2 group">
+        <div className="flex items-center gap-2 px-4 py-2 bg-background border border-border/60 hover:border-primary/50 shadow-sm hover:shadow-primary/20 rounded-xl transition-all duration-300">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          <span className="text-sm font-bold text-foreground tracking-tight">{formatAddress(wallet.address)}</span>
+          <div className="w-px h-3 bg-border mx-1" />
+          <span className="text-[10px] text-muted-foreground font-semibold uppercase tracking-widest">{wallet.walletType}</span>
         </div>
-        <Button variant="ghost" size="sm" onClick={disconnectWallet} className="text-slate-400 hover:text-slate-600 h-8 px-2">
-          <LogOut className="h-3.5 w-3.5" />
+        <Button variant="ghost" size="icon" onClick={disconnectWallet} className="h-10 w-10 rounded-xl text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors">
+          <LogOut className="h-4 w-4" />
         </Button>
       </div>
     );
   }
 
   return (
-    <Button onClick={handleConnect} size="sm" className="gap-1.5 shadow-sm">
-      <Wallet className="h-3.5 w-3.5" />
+    <Button onClick={handleConnect} size="default" className="gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-105 transition-all rounded-xl font-semibold px-6">
+      <Wallet className="h-4 w-4" />
       Connect Wallet
     </Button>
   );

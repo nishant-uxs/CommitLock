@@ -57,47 +57,61 @@ export default function MonitoringPage() {
   const filteredLogs = filter === 'all' ? logs : logs.filter(l => l.level === filter);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-background relative overflow-hidden selection:bg-primary selection:text-primary-foreground text-foreground">
+      {/* Background Decorators */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.25]" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 blur-[120px] rounded-full animate-blob mix-blend-screen" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full animate-blob animation-delay-2000 mix-blend-screen" />
+      </div>
+
       <Navbar />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-8">
-        <div className="flex items-center justify-between animate-fade-in">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 animate-fade-in">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900">Monitoring</h1>
-            <p className="text-sm text-slate-500 mt-0.5">System health and log stream</p>
+            <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-primary/10 text-primary border border-primary/20 mb-4 shadow-inner">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-server">
+                <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>
+              </svg>
+            </div>
+            <h1 className="text-4xl font-extrabold text-foreground tracking-tight drop-shadow-sm mb-2">System Monitoring</h1>
+            <p className="text-lg text-muted-foreground">Track health status and analyze real-time live logs.</p>
           </div>
-          <Button onClick={runHealthCheck} size="sm" variant="outline" disabled={loading} className="gap-1.5">
-            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <RefreshCw className="h-3.5 w-3.5" />}
-            {loading ? 'Checking...' : 'Refresh'}
+          <Button onClick={runHealthCheck} size="lg" variant="outline" disabled={loading} className="gap-2 h-14 rounded-2xl border-border/60 hover:bg-muted/50 transition-all font-semibold shadow-sm">
+            {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <RefreshCw className="h-5 w-5" />}
+            {loading ? 'Running Diagnostics...' : 'Refresh Status'}
           </Button>
         </div>
 
         {health && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in-delay-1">
-            <Card className="border-slate-100 shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-slate-600 flex items-center justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in-delay-1">
+            <Card className="glass-panel border-border/40 shadow-lg hover:shadow-primary/5 transition-all">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-sm font-bold text-muted-foreground uppercase tracking-wider flex items-center justify-between">
                   Overall Status
                   <StatusBadge status={health.status} />
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-slate-500">Uptime: <span className="font-medium text-slate-700">{Math.floor(health.uptime / 60)}m {health.uptime % 60}s</span></p>
-                <p className="text-xs text-slate-400 mt-1">Last checked: {new Date(health.lastChecked).toLocaleTimeString()}</p>
+                <div className="flex flex-col space-y-1">
+                  <p className="text-3xl font-extrabold tracking-tight text-foreground">{Math.floor(health.uptime / 60)}m {health.uptime % 60}s <span className="text-lg text-muted-foreground font-semibold">uptime</span></p>
+                  <p className="text-sm text-muted-foreground font-medium">Last heartbeat: {new Date(health.lastChecked).toLocaleTimeString()}</p>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="border-slate-100 shadow-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-slate-600">Service Checks</CardTitle>
+            <Card className="glass-panel border-border/40 shadow-lg hover:shadow-primary/5 transition-all">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Service Checks</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2.5">
+                <div className="space-y-4">
                   {Object.entries(health.checks).map(([service, ok]) => (
-                    <div key={service} className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600 capitalize">{service.replace(/([A-Z])/g, ' $1')}</span>
-                      <span className={`inline-flex items-center gap-1.5 text-xs font-medium ${ok ? 'text-emerald-600' : 'text-red-500'}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${ok ? 'bg-emerald-500' : 'bg-red-500'}`} />
+                    <div key={service} className="flex items-center justify-between bg-muted/30 p-3 rounded-xl border border-border/30">
+                      <span className="text-sm font-semibold text-foreground tracking-wide capitalize">{service.replace(/([A-Z])/g, ' $1')}</span>
+                      <span className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest ${ok ? 'text-emerald-500' : 'text-red-500'}`}>
+                        <span className={`w-2 h-2 rounded-full ${ok ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-pulse' : 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]'}`} />
                         {ok ? 'Online' : 'Offline'}
                       </span>
                     </div>
@@ -108,62 +122,68 @@ export default function MonitoringPage() {
           </div>
         )}
 
-        <div className="animate-fade-in-delay-2">
-          <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-3">Log Statistics</p>
-          <div className="grid grid-cols-5 gap-2">
+        <div className="animate-fade-in-delay-2 space-y-4">
+          <p className="text-sm font-bold text-foreground/80 uppercase tracking-widest pl-1 border-l-4 border-primary">Log Distribution</p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {(['debug', 'info', 'warn', 'error', 'critical'] as LogLevel[]).map(level => {
               const isActive = filter === level;
               const styles: Record<LogLevel, { active: string; idle: string }> = {
-                debug: { active: 'border-slate-400 bg-slate-50', idle: 'border-slate-100 hover:border-slate-200' },
-                info: { active: 'border-blue-400 bg-blue-50', idle: 'border-slate-100 hover:border-blue-200' },
-                warn: { active: 'border-amber-400 bg-amber-50', idle: 'border-slate-100 hover:border-amber-200' },
-                error: { active: 'border-red-400 bg-red-50', idle: 'border-slate-100 hover:border-red-200' },
-                critical: { active: 'border-red-500 bg-red-50', idle: 'border-slate-100 hover:border-red-300' },
+                debug: { active: 'border-slate-500 shadow-slate-500/20 shadow-lg scale-105', idle: 'border-border/40 hover:border-slate-500/50' },
+                info: { active: 'border-blue-500 shadow-blue-500/20 shadow-lg scale-105', idle: 'border-border/40 hover:border-blue-500/50' },
+                warn: { active: 'border-amber-500 shadow-amber-500/20 shadow-lg scale-105', idle: 'border-border/40 hover:border-amber-500/50' },
+                error: { active: 'border-red-500 shadow-red-500/20 shadow-lg scale-105', idle: 'border-border/40 hover:border-red-500/50' },
+                critical: { active: 'border-rose-600 shadow-rose-600/20 shadow-lg scale-105 bg-rose-500/10', idle: 'border-border/40 hover:border-rose-500/50' },
               };
               const colorText: Record<LogLevel, string> = {
-                debug: 'text-slate-600', info: 'text-blue-600', warn: 'text-amber-600', error: 'text-red-600', critical: 'text-red-700',
+                debug: 'text-slate-400', info: 'text-blue-500', warn: 'text-amber-500', error: 'text-red-500', critical: 'text-rose-500',
               };
               return (
                 <button
                   key={level}
-                  className={`bg-white rounded-xl border-2 p-3 text-center cursor-pointer transition-all ${isActive ? styles[level].active : styles[level].idle}`}
+                  className={`glass-panel rounded-2xl border-2 p-5 text-center cursor-pointer transition-all duration-300 group ${isActive ? styles[level].active : styles[level].idle}`}
                   onClick={() => setFilter(isActive ? 'all' : level)}
                 >
-                  <p className={`text-[10px] uppercase font-medium tracking-wider ${colorText[level]}`}>{level}</p>
-                  <p className={`text-xl font-bold mt-0.5 ${colorText[level]}`}>{logStats[level]}</p>
+                  <p className={`text-xs uppercase font-bold tracking-widest mb-1 ${colorText[level]}`}>{level}</p>
+                  <p className={`text-3xl font-extrabold tracking-tight ${colorText[level]} drop-shadow-sm`}>{logStats[level]}</p>
                 </button>
               );
             })}
           </div>
         </div>
 
-        <div className="animate-fade-in-delay-3">
-          <div className="flex items-center justify-between mb-3">
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-              Log Stream
-              {filter !== 'all' && <span className="ml-2 normal-case tracking-normal text-slate-500">filtered: {filter}</span>}
+        <div className="animate-fade-in-delay-3 space-y-4 pb-12">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-bold text-foreground/80 uppercase tracking-widest pl-1 border-l-4 border-purple-500">
+              Diagnostic Log Stream
+              {filter !== 'all' && <span className="ml-3 text-xs bg-muted text-muted-foreground px-2 py-1 rounded-md lowercase tracking-normal">filtered: {filter}</span>}
             </p>
             {filter !== 'all' && (
-              <button onClick={() => setFilter('all')} className="text-xs text-blue-600 hover:text-blue-700 font-medium">
-                Clear filter
-              </button>
+              <Button onClick={() => setFilter('all')} variant="ghost" size="sm" className="text-xs font-bold text-primary hover:text-primary/80 transition-colors">
+                Clear Filters
+              </Button>
             )}
           </div>
-          <Card className="border-slate-100 shadow-sm overflow-hidden">
-            <CardContent className="p-0">
-              <div className="bg-slate-900 rounded-lg p-4 max-h-[420px] overflow-y-auto font-mono text-[11px] leading-relaxed">
+          <Card className="glass-panel border-border/40 shadow-2xl overflow-hidden rounded-3xl">
+            <CardContent className="p-0 bg-[#0f172a] shadow-inner relative">
+              <div className="p-6 max-h-[500px] overflow-y-auto font-mono text-[13px] leading-relaxed custom-scrollbar">
                 {filteredLogs.length === 0 ? (
-                  <p className="text-slate-600 py-8 text-center">No logs to display.</p>
+                  <p className="text-slate-500 py-12 text-center text-sm">No diagnostic logs found matching current filters.</p>
                 ) : (
                   filteredLogs.slice().reverse().map((entry, i) => (
-                    <div key={i} className="py-1 border-b border-slate-800/50 last:border-0 hover:bg-slate-800/30 px-1 -mx-1 rounded">
-                      <span className="text-slate-600">{new Date(entry.timestamp).toLocaleTimeString()} </span>
-                      <LogLevelBadge level={entry.level} />
-                      <span className="text-slate-500"> [{entry.source}] </span>
-                      <span className="text-slate-300">{entry.message}</span>
-                      {entry.context && Object.keys(entry.context).length > 0 && (
-                        <span className="text-slate-600"> {JSON.stringify(entry.context)}</span>
-                      )}
+                    <div key={i} className="py-2 px-3 border-b border-slate-800/80 last:border-0 hover:bg-slate-800/50 rounded-lg transition-colors group flex items-start gap-4">
+                      <span className="text-slate-500 min-w-[70px] whitespace-nowrap mt-0.5">{new Date(entry.timestamp).toLocaleTimeString([], { hour12: false })}</span>
+                      <div className="flex-1 flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4">
+                        <LogLevelBadge level={entry.level} />
+                        <span className="text-slate-400 font-medium min-w-[120px] shrink-0">[{entry.source}]</span>
+                        <div className="flex-1 flex flex-col pr-2">
+                          <span className="text-slate-200 group-hover:text-white transition-colors">{entry.message}</span>
+                          {entry.context && Object.keys(entry.context).length > 0 && (
+                            <span className="text-slate-500 mt-1 text-[11px] break-all bg-slate-900/50 p-2 rounded-md border border-slate-700/30">
+                              {JSON.stringify(entry.context)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   ))
                 )}

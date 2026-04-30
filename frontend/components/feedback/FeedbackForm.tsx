@@ -54,28 +54,36 @@ export function FeedbackForm() {
   };
 
   return (
-    <Card className="border-slate-200 shadow-sm">
-      <CardHeader className="pb-4">
-        <CardTitle className="text-xl">Share Your Feedback</CardTitle>
-        <CardDescription>Help us improve CommitLock by sharing your experience</CardDescription>
+    <Card className="border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] bg-background/60 backdrop-blur-2xl rounded-3xl overflow-hidden glowing-border relative group">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none" />
+      <CardHeader className="pb-8 pt-10 px-8 lg:px-10 border-b border-border/50 relative z-10 bg-muted/20">
+        <div className="flex items-center gap-4 mb-2">
+          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/10 border border-amber-500/20 flex items-center justify-center shadow-inner">
+            <div className="h-6 w-6 text-amber-500 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">⭐</div>
+          </div>
+          <div>
+            <CardTitle className="text-3xl font-extrabold tracking-tight">Share Feedback</CardTitle>
+            <CardDescription className="text-base text-muted-foreground mt-1">Help us shape the future of CommitLock</CardDescription>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="name" className="text-sm font-medium text-slate-700">Name</Label>
+      <CardContent className="p-8 lg:p-10 relative z-10">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-sm font-semibold text-foreground tracking-wide uppercase">Name</Label>
               <Input
                 id="name"
-                placeholder="Your name"
+                placeholder="What should we call you?"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
-                className="h-11"
+                className="h-14 rounded-xl border-border/60 bg-muted/20 text-base shadow-sm focus-visible:ring-primary focus-visible:border-primary transition-all"
               />
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-sm font-medium text-slate-700">Email</Label>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-semibold text-foreground tracking-wide uppercase">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -83,54 +91,59 @@ export function FeedbackForm() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
-                className="h-11"
+                className="h-14 rounded-xl border-border/60 bg-muted/20 text-base shadow-sm focus-visible:ring-primary focus-visible:border-primary transition-all"
               />
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <Label className="text-sm font-medium text-slate-700">Rating</Label>
-            <div className="flex gap-2">
+          <div className="space-y-3 bg-muted/10 p-6 rounded-2xl border border-border/40">
+            <Label className="text-sm font-semibold text-foreground tracking-wide uppercase">Rate Your Experience</Label>
+            <div className="flex gap-3 justify-between sm:justify-start">
               {[1, 2, 3, 4, 5].map((n) => (
                 <button
                   key={n}
                   type="button"
                   onClick={() => setFormData({ ...formData, rating: String(n) })}
-                  className={`w-10 h-10 rounded-lg text-sm font-semibold transition-all ${
+                  className={`w-14 h-14 sm:w-16 sm:h-16 rounded-2xl text-xl sm:text-2xl hover:scale-110 flex items-center justify-center transition-all duration-300 shadow-sm ${
                     parseInt(formData.rating) >= n
-                      ? 'bg-amber-100 text-amber-700 border-2 border-amber-300'
-                      : 'bg-slate-50 text-slate-400 border border-slate-200 hover:border-slate-300'
+                      ? 'bg-gradient-to-br from-amber-400 to-amber-500 text-white shadow-amber-500/30'
+                      : 'bg-muted border border-border/60 text-muted-foreground hover:border-amber-500/50 hover:text-amber-500/70'
                   }`}
                 >
-                  {n}
+                  ★
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="feedback" className="text-sm font-medium text-slate-700">Your Feedback</Label>
+          <div className="space-y-2">
+            <Label htmlFor="feedback" className="text-sm font-semibold text-foreground tracking-wide uppercase">Your Thoughts</Label>
             <Textarea
               id="feedback"
-              placeholder="Tell us about your experience with CommitLock..."
+              placeholder="What do you love? What could be better? Don't hold back..."
               value={formData.feedback}
               onChange={(e) => setFormData({ ...formData, feedback: e.target.value })}
               rows={5}
               required
-              className="resize-none"
+              className="resize-none rounded-xl border-border/60 bg-muted/20 text-base shadow-sm focus-visible:ring-primary focus-visible:border-primary transition-all p-4"
             />
           </div>
 
-          <Button type="submit" className="w-full h-11 font-semibold shadow-sm" disabled={loading}>
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Submitting...
-              </>
-            ) : (
-              'Submit Feedback'
-            )}
-          </Button>
+          <div className="pt-4">
+            <Button type="submit" className="w-full h-16 text-lg font-bold shadow-xl shadow-primary/20 rounded-2xl hover:scale-[1.02] hover:shadow-primary/40 transition-all duration-300 relative overflow-hidden group" disabled={loading}>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+              <span className="relative z-10 flex items-center justify-center">
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-3 h-6 w-6 animate-spin" />
+                    Sending feedback...
+                  </>
+                ) : (
+                  'Send Feedback'
+                )}
+              </span>
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>

@@ -13,16 +13,19 @@ interface ReservationCardProps {
 
 function StatusBadge({ status }: { status: number | bigint }) {
   const s = Number(status);
-  const config: Record<number, { label: string; bg: string; text: string; dot: string }> = {
-    0: { label: 'Open', bg: 'bg-emerald-50', text: 'text-emerald-700', dot: 'bg-emerald-500' },
-    1: { label: 'Booked', bg: 'bg-blue-50', text: 'text-blue-700', dot: 'bg-blue-500' },
-    2: { label: 'Completed', bg: 'bg-violet-50', text: 'text-violet-700', dot: 'bg-violet-500' },
-    3: { label: 'No Show', bg: 'bg-red-50', text: 'text-red-700', dot: 'bg-red-500' },
+  const config: Record<number, { label: string; wrapper: string; text: string; dot: string; glow: string }> = {
+    0: { label: 'Open', wrapper: 'bg-emerald-500/10 border-emerald-500/20', text: 'text-emerald-500', dot: 'bg-emerald-500', glow: 'shadow-[0_0_12px_rgba(16,185,129,0.4)]' },
+    1: { label: 'Booked', wrapper: 'bg-blue-500/10 border-blue-500/20', text: 'text-blue-500', dot: 'bg-blue-500', glow: 'shadow-[0_0_12px_rgba(59,130,246,0.4)]' },
+    2: { label: 'Completed', wrapper: 'bg-violet-500/10 border-violet-500/20', text: 'text-violet-500', dot: 'bg-violet-500', glow: 'shadow-[0_0_12px_rgba(139,92,246,0.4)]' },
+    3: { label: 'No Show', wrapper: 'bg-red-500/10 border-red-500/20', text: 'text-red-500', dot: 'bg-red-500', glow: 'shadow-[0_0_12px_rgba(239,68,68,0.4)]' },
   };
-  const c = config[s] || { label: 'Unknown', bg: 'bg-slate-50', text: 'text-slate-600', dot: 'bg-slate-400' };
+  const c = config[s] || { label: 'Unknown', wrapper: 'bg-muted/50 border-border/50', text: 'text-muted-foreground', dot: 'bg-muted-foreground', glow: '' };
   return (
-    <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full ${c.bg} ${c.text}`}>
-      <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`} />
+    <span className={`inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full border backdrop-blur-md transition-all ${c.wrapper} ${c.text}`}>
+      <span className={`relative flex h-2 w-2`}>
+        <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${c.dot}`}></span>
+        <span className={`relative inline-flex rounded-full h-2 w-2 ${c.dot} ${c.glow}`}></span>
+      </span>
       {c.label}
     </span>
   );
@@ -34,48 +37,57 @@ export function ReservationCard({ reservation, userAddress }: ReservationCardPro
   const canBook = !isHost && !isGuest && reservation.status === ReservationStatus.Open;
 
   return (
-    <Link href={`/booking/${reservation.id}`} className="block group">
-      <div className="relative bg-white rounded-2xl border border-slate-150 p-5 transition-all duration-200 hover:shadow-lg hover:shadow-slate-100/80 hover:border-slate-200 hover:-translate-y-0.5">
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <h3 className="text-base font-semibold text-slate-900 leading-snug line-clamp-1 group-hover:text-blue-600 transition-colors">
+    <Link href={`/booking/${reservation.id}`} className="block group w-full">
+      <div className="relative glass-panel rounded-3xl border border-border/40 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:border-primary/30 hover:-translate-y-2 overflow-hidden bg-gradient-to-b from-card/50 to-card/10">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        
+        <div className="flex items-start justify-between gap-4 mb-5 relative z-10">
+          <h3 className="text-xl font-extrabold text-foreground leading-tight line-clamp-1 group-hover:text-primary transition-colors duration-300 drop-shadow-sm">
             {reservation.title}
           </h3>
           <StatusBadge status={reservation.status} />
         </div>
 
-        <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 mb-4">
+        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-8 relative z-10 font-medium">
           {reservation.description}
         </p>
 
-        <div className="flex items-center gap-4 text-xs text-slate-400 mb-4">
-          <span className="inline-flex items-center gap-1.5">
-            <Calendar className="h-3.5 w-3.5" />
+        <div className="flex items-center justify-between gap-4 text-sm font-bold text-muted-foreground mb-8 bg-muted/40 p-4 rounded-2xl border border-border/30 relative z-10 group-hover:bg-muted/60 transition-colors">
+          <span className="inline-flex items-center gap-2.5 text-foreground/80">
+            <div className="p-2 bg-background rounded-lg shadow-sm border border-border/50">
+              <Calendar className="h-4 w-4 text-primary" />
+            </div>
             {formatDate(Number(reservation.timestamp))}
           </span>
-          <span className="inline-flex items-center gap-1.5 font-semibold text-slate-600">
-            <Coins className="h-3.5 w-3.5 text-amber-500" />
-            {formatXLM(reservation.deposit)} XLM
+          <span className="inline-flex items-center gap-2.5 text-foreground">
+            <div className="p-2 bg-background rounded-lg shadow-sm border border-border/50">
+              <Coins className="h-4 w-4 text-amber-500" />
+            </div>
+            <span className="tracking-tight">{formatXLM(reservation.deposit)} <span className="text-amber-500">XLM</span></span>
           </span>
         </div>
 
         {(isHost || isGuest) && (
-          <div className="mb-4">
-            <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-md ${isHost ? 'bg-blue-50 text-blue-600' : 'bg-emerald-50 text-emerald-600'}`}>
-              <User className="h-3 w-3" />
+          <div className="mb-6 relative z-10">
+            <span className={`inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-xl backdrop-blur-md border ${isHost ? 'bg-primary/10 text-primary border-primary/20' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'}`}>
+              <User className="h-4 w-4" />
               {isHost ? 'You are hosting' : 'You booked this'}
             </span>
           </div>
         )}
 
-        <div className="pt-3 border-t border-slate-100">
+        <div className="pt-5 border-t border-border/30 relative z-10">
           <Button
-            variant={canBook ? "default" : "ghost"}
-            size="sm"
-            className={`w-full gap-1.5 ${canBook ? 'shadow-sm' : 'text-slate-500 hover:text-blue-600'}`}
+            variant={canBook ? "default" : "outline"}
+            className={`w-full gap-2 font-bold h-14 rounded-2xl transition-all duration-300 text-base ${
+              canBook 
+                ? 'shadow-xl shadow-primary/20 group-hover:shadow-primary/40 group-hover:scale-[1.02] bg-primary text-primary-foreground' 
+                : 'hover:bg-primary/10 hover:text-primary hover:border-primary/30 group-hover:scale-[1.02] border-border/60 bg-muted/20 text-foreground'
+            }`}
             tabIndex={-1}
           >
-            {canBook ? 'Book Now' : 'View Details'}
-            <ArrowRight className="h-3.5 w-3.5" />
+            {canBook ? 'Secure Booking' : 'View Details'}
+            <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform" />
           </Button>
         </div>
       </div>

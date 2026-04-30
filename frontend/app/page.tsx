@@ -1,27 +1,36 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { WalletConnect } from "@/components/wallet/WalletConnect";
-import { Shield, Lock, CheckCircle, ArrowRight, Zap, Wallet, Clock, Users, TrendingUp, ExternalLink } from "lucide-react";
+import { Shield, Lock, CheckCircle, ArrowRight, Zap, Wallet, Clock, Users, Activity, ExternalLink, ChevronRight, Sparkles } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      {/* ─── HERO ─── */}
-      <section className="relative hero-gradient overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-40" />
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
+    <div className="relative min-h-screen bg-background selection:bg-primary selection:text-primary-foreground overflow-hidden font-sans">
+      {/* Background Effects */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-grid-pattern opacity-[0.25]" />
+        
+        {/* Animated glowing orbs using Tailwind animations */}
+        <div className="absolute top-[-10%] left-[20%] w-[500px] h-[500px] bg-blue-500/20 blur-[120px] rounded-full animate-blob mix-blend-screen" />
+        <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-purple-500/20 blur-[120px] rounded-full animate-blob animation-delay-200 mix-blend-screen" />
+        <div className="absolute bottom-[-10%] left-[40%] w-[600px] h-[600px] bg-indigo-500/20 blur-[120px] rounded-full animate-blob animation-delay-400 mix-blend-screen" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+      </div>
 
-        <header className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-5">
-          <nav className="flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <Shield className="h-7 w-7 text-blue-400" />
-              <span className="text-lg font-bold tracking-tight text-white">
-                Commit<span className="text-blue-400">Lock</span>
+      <div className="relative z-10">
+        {/* Navigation */}
+        <header className="fixed top-0 inset-x-0 z-50 border-b border-white/5 bg-background/50 backdrop-blur-2xl transition-all">
+          <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-1.5 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-lg border border-white/10 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                <Shield className="h-5 w-5 text-blue-400" />
+              </div>
+              <span className="text-lg font-bold tracking-tight">
+                Commit<span className="text-muted-foreground font-medium">Lock</span>
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <Link href="/dashboard" className="hidden sm:inline-flex text-sm text-slate-400 hover:text-white transition-colors">
+            <div className="flex items-center gap-4">
+              <Link href="/dashboard" className="hidden text-sm font-medium text-muted-foreground hover:text-foreground transition-all sm:block hover:-translate-y-0.5">
                 Dashboard
               </Link>
               <WalletConnect />
@@ -29,196 +38,177 @@ export default function Home() {
           </nav>
         </header>
 
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 pt-16 pb-28 text-center">
-          <div className="animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-slate-300 mb-8">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              Live on Stellar Testnet
+        {/* Hero Section */}
+        <section className="pt-48 pb-20 px-6 sm:pt-56 sm:pb-32 lg:pb-48 relative">
+          <div className="max-w-5xl mx-auto text-center relative z-10">
+            <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-xl mb-10 hover:bg-white/10 transition-colors cursor-pointer group">
+              <Sparkles className="h-4 w-4 text-blue-400 animate-pulse mt-0.5" />
+              <span className="text-sm font-medium text-foreground tracking-wide">Now live on Stellar Testnet</span>
+              <div className="w-px h-4 bg-white/20 mx-1" />
+              <Link href="/dashboard" className="flex items-center text-sm font-medium text-muted-foreground group-hover:text-blue-400 transition-colors">
+                Try it out <ChevronRight className="h-3.5 w-3.5 ml-1 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
-          </div>
 
-          <h1 className="animate-fade-in-delay-1 text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
-            Stop No-Shows with<br />
-            <span className="text-gradient">Blockchain Deposits</span>
-          </h1>
+            <h1 className="animate-fade-in-delay-1 text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-tighter text-foreground mb-8 leading-[1.05]">
+              Eliminate no-shows.<br />
+              <span className="animate-text-shimmer bg-clip-text text-transparent pb-2">Guarantee attendance.</span>
+            </h1>
 
-          <p className="animate-fade-in-delay-2 mt-6 text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            CommitLock locks refundable XLM deposits in Soroban smart contracts.
-            Guests attend — they get refunded. No-show — you keep the deposit.
-          </p>
-
-          <div className="animate-fade-in-delay-3 mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard">
-              <Button size="lg" className="h-12 px-8 text-base font-semibold gap-2 bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/25 transition-all hover:shadow-blue-500/30">
-                Launch App
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="https://stellar.expert/explorer/testnet/contract/CANEW3ZQL7QVB7ZAH5R6XXEUZX3TGO5CONSPXBAFSPWSEK2ITBZJ7WT5" target="_blank">
-              <Button size="lg" variant="outline" className="h-12 px-8 text-base font-semibold gap-2 border-white/15 bg-white/5 text-white hover:bg-white/10 hover:text-white">
-                View Contract
-                <ExternalLink className="h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-
-          <div className="animate-fade-in-delay-4 mt-14 grid grid-cols-3 max-w-md mx-auto gap-8 text-center">
-            <div>
-              <p className="text-2xl font-bold text-white">32+</p>
-              <p className="text-xs text-slate-500 mt-0.5">Active Users</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">0%</p>
-              <p className="text-xs text-slate-500 mt-0.5">Gas Fees</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">&lt;5s</p>
-              <p className="text-xs text-slate-500 mt-0.5">Settlement</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── FEATURES ─── */}
-      <section className="relative bg-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
-              Built for Trust
-            </h2>
-            <p className="mt-4 text-lg text-slate-500 max-w-2xl mx-auto">
-              Every feature is designed to create accountability between hosts and guests.
+            <p className="animate-fade-in-delay-2 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-12 font-medium">
+              CommitLock enforces accountability through smart contracts. Guests lock a refundable XLM deposit to secure their spot. Show up and get refunded. No-show, you keep the deposit.
             </p>
-          </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Lock, title: 'Smart Escrow', desc: 'Deposits locked in Soroban smart contracts. Fully automated, trustless, and transparent.', iconBg: 'bg-blue-50', iconColor: 'text-blue-600' },
-              { icon: CheckCircle, title: 'Instant Refunds', desc: 'Guests who show up get their deposit back instantly. No intermediaries, no delays.', iconBg: 'bg-green-50', iconColor: 'text-green-600' },
-              { icon: Shield, title: 'Host Protection', desc: 'No-shows forfeit their deposit to the host. Fair compensation, enforced by code.', iconBg: 'bg-indigo-50', iconColor: 'text-indigo-600' },
-              { icon: Zap, title: 'Gasless Txns', desc: 'Fee sponsorship covers gas. Users never pay network fees — frictionless experience.', iconBg: 'bg-amber-50', iconColor: 'text-amber-600' },
-            ].map(({ icon: Icon, title, desc, iconBg, iconColor }) => (
-              <div
-                key={title}
-                className="group relative p-6 rounded-2xl border border-slate-100 bg-white hover:border-slate-200 hover:shadow-lg hover:shadow-slate-100/50 transition-all duration-300"
-              >
-                <div className={`inline-flex p-3 rounded-xl ${iconBg} mb-4`}>
-                  <Icon className={`h-6 w-6 ${iconColor}`} />
-                </div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            <div className="animate-fade-in-delay-3 flex flex-col sm:flex-row items-center gap-5 justify-center">
+              <Link href="/dashboard">
+                <Button size="lg" className="h-14 px-8 text-base font-semibold group relative overflow-hidden bg-white text-black hover:bg-slate-200 transition-all hover:scale-105 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
+                  <span className="relative z-10 flex items-center">
+                    Launch App
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent -translate-x-[100%] group-hover:animate-[shimmer_1.5s_infinite]" />
+                </Button>
+              </Link>
+              <Link href="https://stellar.expert/explorer/testnet" target="_blank">
+                <Button size="lg" variant="outline" className="h-14 px-8 text-base bg-white/5 border-white/10 hover:bg-white/10 backdrop-blur-md transition-all hover:scale-105 font-medium">
+                  View Smart Contract
+                  <ExternalLink className="ml-2 h-4 w-4 opacity-70" />
+                </Button>
+              </Link>
+            </div>
 
-      {/* ─── HOW IT WORKS ─── */}
-      <section className="bg-slate-50 py-24 grid-bg">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
-              How It Works
-            </h2>
-            <p className="mt-4 text-lg text-slate-500">
-              Four simple steps to eliminate no-shows.
-            </p>
-          </div>
-
-          <div className="relative">
-            <div className="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Stats / Proof points */}
+            <div className="animate-fade-in-delay-4 mt-24 pt-12 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-left sm:text-center relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
               {[
-                { step: '01', icon: Wallet, title: 'Create Reservation', desc: 'Host sets up a slot with a required XLM deposit amount.' },
-                { step: '02', icon: Lock, title: 'Guest Books', desc: 'Guest locks their XLM deposit into the smart contract.' },
-                { step: '03', icon: Clock, title: 'Attend Event', desc: 'Guest shows up at the reservation time.' },
-                { step: '04', icon: CheckCircle, title: 'Confirm & Settle', desc: 'Host confirms attendance. Deposit returned or forfeited.' },
-              ].map(({ step, icon: Icon, title, desc }) => (
-                <div key={step} className="relative text-center lg:text-left">
-                  <div className="relative inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-white border-2 border-blue-100 shadow-sm mb-5 mx-auto lg:mx-0">
-                    <Icon className="h-5 w-5 text-blue-600" />
-                    <span className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-[10px] font-bold">
-                      {step}
-                    </span>
+                { label: "Network", value: "Stellar", icon: Activity },
+                { label: "Settlement", value: "< 5s", icon: Zap },
+                { label: "Gas Fees", value: "$0.00", icon: Wallet },
+                { label: "Trust Model", value: "Trustless", icon: Lock },
+              ].map((stat, i) => (
+                <div key={i} className="flex flex-col sm:items-center group">
+                  <div className="flex items-center gap-2 mb-3 text-muted-foreground group-hover:text-blue-400 transition-colors">
+                    <stat.icon className="h-4 w-4" />
+                    <span className="text-xs font-bold uppercase tracking-widest">{stat.label}</span>
                   </div>
-                  <h4 className="text-base font-semibold text-slate-900 mb-1.5">{title}</h4>
-                  <p className="text-sm text-slate-500 leading-relaxed">{desc}</p>
+                  <span className="text-3xl font-extrabold tracking-tight text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">{stat.value}</span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── STATS BAR ─── */}
-      <section className="hero-gradient py-16">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { icon: Users, label: 'Verified Users', value: '32+' },
-              { icon: TrendingUp, label: 'Transactions', value: '850+' },
-              { icon: Shield, label: 'Deposits Secured', value: '100%' },
-              { icon: Zap, label: 'Avg Settlement', value: '<5s' },
-            ].map(({ icon: Icon, label, value }) => (
-              <div key={label}>
-                <Icon className="h-5 w-5 text-blue-400 mx-auto mb-2" />
-                <p className="text-2xl sm:text-3xl font-bold text-white">{value}</p>
-                <p className="text-xs text-slate-400 mt-1">{label}</p>
-              </div>
-            ))}
+        {/* Features Section */}
+        <section className="py-32 px-6 relative z-10 border-t border-white/5 bg-background">
+          <div className="absolute inset-0 bg-blue-500/5 mix-blend-screen pointer-events-none" />
+          <div className="max-w-6xl mx-auto relative z-10">
+            <div className="mb-20 max-w-2xl">
+              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
+                Engineered for <span className="text-blue-400">reliability.</span>
+              </h2>
+              <p className="text-xl text-muted-foreground">
+                We&apos;ve built a bulletproof escrow mechanism on Soroban to ensure fair outcomes without human intermediaries.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: Lock,
+                  title: "Immutable Escrow",
+                  desc: "Funds are locked in a Soroban smart contract out of anyone&apos;s control until the event concludes."
+                },
+                {
+                  icon: Zap,
+                  title: "Gas-free Experience",
+                  desc: "Built-in fee sponsorship means your users never need native tokens to pay for transaction fees."
+                },
+                {
+                  icon: CheckCircle,
+                  title: "Instant Resolution",
+                  desc: "Once attendance is verified, deposits are distributed at the speed of the Stellar network."
+                }
+              ].map((feature, i) => (
+                <div key={i} className="group relative p-8 rounded-3xl glass-panel glowing-border transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(59,130,246,0.3)] cursor-default">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl" />
+                  <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center mb-8 shadow-inner relative z-10">
+                    <feature.icon className="h-6 w-6 text-blue-400 group-hover:text-blue-300 transition-colors" />
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 relative z-10">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-base relative z-10">
+                    {feature.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── CTA ─── */}
-      <section className="bg-white py-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">
-            Ready to eliminate no-shows?
-          </h2>
-          <p className="text-lg text-slate-500 mb-10">
-            Connect your Stellar wallet and start creating deposit-protected reservations in minutes.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/dashboard">
-              <Button size="lg" className="h-12 px-8 text-base font-semibold gap-2">
-                Open Dashboard
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/feedback">
-              <Button size="lg" variant="outline" className="h-12 px-8 text-base font-semibold">
-                Share Feedback
-              </Button>
-            </Link>
+        {/* How it works */}
+        <section className="py-32 px-6 relative overflow-hidden bg-black/40">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+          <div className="max-w-6xl mx-auto relative z-10">
+            <div className="text-center mb-24">
+              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
+                The flow.
+              </h2>
+              <p className="text-xl text-muted-foreground">Four deterministic steps to finalize a booking.</p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 relative">
+              <div className="hidden lg:block absolute top-[28px] left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent z-0" />
+              
+              {[
+                {
+                  step: "01",
+                  title: "Initialize",
+                  desc: "Host deploys a reservation slot specifying the required XLM deposit.",
+                },
+                {
+                  step: "02",
+                  title: "Commit",
+                  desc: "Guest triggers the contract to lock funds and secure their attendance.",
+                },
+                {
+                  step: "03",
+                  title: "Verify",
+                  desc: "Host scans or confirms the guest in the system upon arrival.",
+                },
+                {
+                  step: "04",
+                  title: "Settle",
+                  desc: "Contract executes refund if attended, or slashed transfer if absent.",
+                }
+              ].map((item, i) => (
+                <div key={i} className="relative z-10 flex flex-col items-center text-center group">
+                  <div className="w-14 h-14 rounded-full bg-background border border-blue-500/30 flex items-center justify-center mb-8 text-base font-bold text-blue-400 shadow-[0_0_20px_rgba(59,130,246,0.2)] group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(59,130,246,0.4)] transition-all duration-300">
+                    {item.step}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── FOOTER ─── */}
-      <footer className="border-t border-slate-200 bg-slate-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-2.5">
-              <Shield className="h-5 w-5 text-blue-600" />
-              <span className="text-sm font-semibold text-slate-700">
-                Commit<span className="text-blue-600">Lock</span>
+        {/* Footer */}
+        <footer className="py-12 px-6 border-t border-white/5 bg-background relative z-10">
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
+              <Shield className="h-5 w-5 text-foreground" />
+              <span className="text-sm font-semibold text-foreground tracking-wide">
+                CommitLock &copy; {new Date().getFullYear()}
               </span>
-              <span className="text-xs text-slate-400 ml-2">Built on Stellar &middot; Powered by Soroban</span>
             </div>
-            <div className="flex gap-6 text-sm text-slate-500">
-              <Link href="/dashboard" className="hover:text-blue-600 transition-colors">Dashboard</Link>
-              <Link href="/create" className="hover:text-blue-600 transition-colors">Create</Link>
-              <Link href="/metrics" className="hover:text-blue-600 transition-colors">Metrics</Link>
-              <Link href="/monitoring" className="hover:text-blue-600 transition-colors">Monitor</Link>
-              <Link href="/feedback" className="hover:text-blue-600 transition-colors">Feedback</Link>
+            <div className="flex gap-8 text-sm font-medium text-muted-foreground">
+              <Link href="/dashboard" className="hover:text-foreground transition-colors">Dashboard</Link>
+              <Link href="/metrics" className="hover:text-foreground transition-colors">Metrics</Link>
+              <Link href="https://github.com" target="_blank" className="hover:text-foreground transition-colors">GitHub</Link>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

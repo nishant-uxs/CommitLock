@@ -4,6 +4,7 @@ import "./globals.css";
 import { WalletProvider } from "@/contexts/WalletContext";
 import { Toaster } from "@/components/ui/toaster";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,13 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <WalletProvider>
-          <ErrorBoundary>
-            {children}
-          </ErrorBoundary>
-          <Toaster />
-        </WalletProvider>
+      <body className={`${inter.className} min-h-screen bg-background font-sans antialiased text-foreground transition-colors duration-300`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <WalletProvider>
+            <ErrorBoundary>
+              {children}
+            </ErrorBoundary>
+            <Toaster />
+          </WalletProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
